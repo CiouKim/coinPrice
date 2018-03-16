@@ -7,15 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 
 @interface profView : UIView <UITableViewDelegate, UITableViewDataSource > {
-     UILabel *laBTCValue;
+    UILabel *laBTCValue;
     UITableView *tTableView;
+    UIButton *refreshBtn;
+    UIButton *bestBtn;
+
 }
 
+@property (nonatomic, strong)  ViewController* controller;
 @property (nonatomic, readonly) NSMutableArray *gpuGroups;
 @property (nonatomic, readonly) NSMutableArray *gpuProf;
 
 @property float currentBTCPrice;
+
 
 @end

@@ -26,6 +26,7 @@
 //    [self.view addSubview:view];
 
     pView = [[profView alloc] initWithFrame:self.view.bounds];
+    pView.controller = self;
     self.view = pView;
 }
 

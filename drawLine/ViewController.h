@@ -13,6 +13,7 @@
 
 @class LineView;
 @class oneView;
+@class profView;
 
 @interface ViewController : UIViewController {
     

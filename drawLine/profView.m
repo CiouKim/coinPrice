@@ -36,21 +36,48 @@
     tTableView.dataSource = self;
     tTableView.frame = CGRectMake(20, 80, self.frame.size.width - 40, 300);
     tTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self addSubview:tTableView];
+    
+    refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    refreshBtn.layer.opacity = .70;
+    refreshBtn.layer.cornerRadius = 25.0;
+    refreshBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:107/255.0 blue:171/255.0 alpha:1.0];
+    [refreshBtn addTarget:self
+               action:@selector(refeeshClick)
+     forControlEvents:UIControlEventTouchUpInside];
+    [refreshBtn setTitle:@"R" forState:UIControlStateNormal];
+    refreshBtn.frame = CGRectMake(20, 420, 50, 50);
+    [self addSubview:refreshBtn];
+    
+    
+    bestBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    bestBtn.layer.opacity = .70;
+    bestBtn.layer.cornerRadius = 25.0;
+    bestBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:6.0/255.0 blue:40.0/255.0 alpha:1.0];
+    [bestBtn addTarget:self
+                   action:@selector(getBestAlgorithmForGPU)
+         forControlEvents:UIControlEventTouchUpInside];
+    [bestBtn setTitle:@"B" forState:UIControlStateNormal];
+    bestBtn.frame = CGRectMake(100, 420, 50, 50);
+    [self addSubview:bestBtn];
     
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
     
     return self;
 }
 
--(void)updateTime:(NSTimer *)timer {
+- (void)refeeshClick {
     [self getCurrentBTCPrice:currentBTCPriceUrl];
     [self getCurrentCoinPrice:coinPriceUrl];
 }
 
+- (void)updateTime:(NSTimer *)timer {
+    [self getCurrentBTCPrice:currentBTCPriceUrl];
+    [self getCurrentCoinPrice:coinPriceUrl];
+}
 
 - (void)getInitGPUData:(NSString *)url {
-    
     if (_gpuGroups == nil) {
         _gpuGroups = [[NSMutableArray alloc] init];
     }
@@ -64,12 +91,11 @@
         gpu.lyra2rev2 = [[gpuDic valueForKey:@"lyra2rev2"] intValue];
         gpu.neoscrypt = [[gpuDic valueForKey:@"neoscrypt"] intValue];
         gpu.nist5 = [[gpuDic valueForKey:@"nist5"] intValue];
-        
         [_gpuGroups addObject:gpu];
     }
 }
 
--(void)getCurrentBTCPrice:(NSString *)url {
+- (void)getCurrentBTCPrice:(NSString *)url {
     [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
         NSDictionary *dic = [result valueForKey:@"bpi"];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -91,6 +117,7 @@
         if (_gpuProf == nil) {
             _gpuProf = [[NSMutableArray alloc] init];
         }
+        [_gpuProf removeAllObjects];
         for (GpuType *gCard in self.gpuGroups) {
             NSMutableArray *arrData = [[NSMutableArray alloc] init];
             NSString *name = gCard.gpuName;
@@ -99,7 +126,6 @@
             float nist5 = gCard.nist5*nist5Value*_currentBTCPrice;
             float lyra2rev2 = gCard.lyra2rev2*lyra2rev2Value*_currentBTCPrice;
             float dag = gCard.daggerhashimoto*daggerhashimotoValue*_currentBTCPrice;
-            
             
             [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.2f", euq], @"profValue",
                                 @"equihash", @"algorithm", nil]];
@@ -112,9 +138,7 @@
             [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.2f", dag], @"profValue",
                                 @"daggerhashimoto", @"algorithm", nil]];
             
-            [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data",
-                                 name, @"Key", nil]];
-            
+            [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data", name, @"Key", nil]];
             }
         dispatch_async(dispatch_get_main_queue(), ^{
             [tTableView reloadData];
@@ -149,7 +173,6 @@
 }
 
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.gpuProf.count;
 }
@@ -181,9 +204,35 @@
     NSString *profValue = [[self.gpuProf[indexPath.section] valueForKey:@"Data"][indexPath.row] valueForKey:@"profValue"];
     NSString *algorithm = [[self.gpuProf[indexPath.section] valueForKey:@"Data"][indexPath.row] valueForKey:@"algorithm"];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@ USD", algorithm, profValue];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@ $", algorithm, profValue];
     return cell;
 }
 
+- (void)getBestAlgorithmForGPU {
+    NSMutableString *msg = [[NSMutableString alloc] init];
+    for (NSDictionary *dic in _gpuProf) {
+        NSString *gpuName = [dic valueForKey:@"Key"];
+        NSString *betteralg = [self findMaxValue:[[dic valueForKey:@"Data"] allObjects]];
+        [msg appendFormat: @"%@  %@$ \n", gpuName, betteralg];
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Best Algorithm" message:msg preferredStyle:  UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+    }]];
+    [self.controller presentViewController:alert animated:YES completion:nil];
+}
+
+-(NSString *) findMaxValue:(NSArray *)dataArray {
+    float MaxValue = 0;
+    NSString *algorithmType = @"";
+    for (NSDictionary *d in dataArray) {
+        if ([[d valueForKey:@"profValue"] floatValue] > MaxValue) {
+            MaxValue = [[d valueForKey:@"profValue"] floatValue];
+            algorithmType = [d valueForKey:@"algorithm"];
+        }
+    }
+    return  [NSString stringWithFormat:@"%@:%1.2f", algorithmType, MaxValue];
+}
 
 @end
