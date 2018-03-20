@@ -20,6 +20,7 @@
 		7C7B196D1FFB3179004A5D21 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B196C1FFB3179004A5D21 /* main.m */; };
 		7C7B19751FFB31CE004A5D21 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B19741FFB31CE004A5D21 /* LineView.m */; };
 		7C7EAF7020315D9E0094805C /* apple13.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C7EAF6F20315D9E0094805C /* apple13.png */; };
+		7C806120205F95CD00849B6E /* Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C80611E205F95CC00849B6E /* Popup.m */; };
 		7C8F79C220243BB50067C5CF /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8F79C120243BB50067C5CF /* RTLabel.m */; };
 		7CD32AFE2003229600E7293C /* iCloudHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD32AFD2003229600E7293C /* iCloudHelper.m */; };
 		7CD32B012003364B00E7293C /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD32B002003364B00E7293C /* apple.png */; };
@@ -49,6 +50,8 @@
 		7C7B19731FFB31CE004A5D21 /* LineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
 		7C7B19741FFB31CE004A5D21 /* LineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		7C7EAF6F20315D9E0094805C /* apple13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple13.png; sourceTree = "<group>"; };
+		7C80611E205F95CC00849B6E /* Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popup.m; sourceTree = "<group>"; };
+		7C80611F205F95CC00849B6E /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		7C8F79C020243BB50067C5CF /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
 		7C8F79C120243BB50067C5CF /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
 		7CD32AF320031CDB00E7293C /* drawLine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = drawLine.entitlements; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				7C7B19661FFB3179004A5D21 /* Assets.xcassets */,
 				7C7B195D1FFB3179004A5D21 /* AppDelegate.h */,
 				7C7B195E1FFB3179004A5D21 /* AppDelegate.m */,
+				7C80611F205F95CC00849B6E /* Popup.h */,
+				7C80611E205F95CC00849B6E /* Popup.m */,
 				7C60F6CA205A5C6C009FB4E8 /* GpuType.h */,
 				7C60F6CB205A5C6C009FB4E8 /* GpuType.m */,
 				7C7B19601FFB3179004A5D21 /* ViewController.h */,
@@ -226,6 +231,7 @@
 			files = (
 				7C7B19751FFB31CE004A5D21 /* LineView.m in Sources */,
 				7C60F6BA205A48A7009FB4E8 /* profView.m in Sources */,
+				7C806120205F95CD00849B6E /* Popup.m in Sources */,
 				7CD32AFE2003229600E7293C /* iCloudHelper.m in Sources */,
 				7C8F79C220243BB50067C5CF /* RTLabel.m in Sources */,
 				7C62AAE81FFE1AA900CE9B02 /* oneView.m in Sources */,

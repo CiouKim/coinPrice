@@ -8,13 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
+#import "Popup.h"
 
-@interface profView : UIView <UITableViewDelegate, UITableViewDataSource > {
+@interface profView : UIView <UITableViewDelegate, UITableViewDataSource, PopupDelegate> {
     UILabel *laBTCValue;
     UITableView *tTableView;
     UIButton *refreshBtn;
     UIButton *bestBtn;
-
+    UIButton *profitBtn;
+    
+    UIActivityIndicatorView *spinner;
+    Popup *popper;
+    
+    PopupBackGroundBlurType blurType;
+    PopupIncomingTransitionType incomingType;
+    PopupOutgoingTransitionType outgoingType;
 }
 
 @property (nonatomic, strong)  ViewController* controller;
@@ -22,6 +30,9 @@
 @property (nonatomic, readonly) NSMutableArray *gpuProf;
 
 @property float currentBTCPrice;
+@property float currentETHPrice;
+@property float currentLTCPrice;
+@property float currentSCPrice;
 
 
 @end

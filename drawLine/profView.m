@@ -10,8 +10,9 @@
 #import "oneViewController.h"
 #import "GpuType.h"
 
-#define currentBTCPriceUrl @"https://api.coindesk.com/v1/bpi/currentprice.json"
 #define coinPriceUrl @"https://api.nicehash.com/api?method=simplemultialgo.info"
+#define balanceUrl @"https://auto-mover.firebaseio.com/balance.json"
+#define currentCoinPrice @"https://api.coinmarketcap.com/v1/ticker/?limit=50"
 
 @implementation profView
 
@@ -19,15 +20,15 @@
     self = [super initWithFrame:frame];
     self.backgroundColor = [UIColor clearColor];
     
-    laBTCValue = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - 75, 20, 150, 50)];
+    laBTCValue = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.frame.size.width -20, 50)];
     laBTCValue.backgroundColor = [UIColor clearColor];
     laBTCValue.textColor = [UIColor blackColor];
     laBTCValue.textAlignment = NSTextAlignmentCenter;
-    laBTCValue.font = [UIFont systemFontOfSize:18];
+    laBTCValue.font = [UIFont systemFontOfSize:13];
     
     [self addSubview:laBTCValue];
-    [self getCurrentBTCPrice:currentBTCPriceUrl];
     [self getCurrentCoinPrice:coinPriceUrl];
+    [self getCoinPrice:currentCoinPrice];
     [self getInitGPUData:[[NSBundle mainBundle] pathForResource:@"GpuGroup" ofType:@"json"]];
     
     tTableView = [[UITableView alloc]init];
@@ -35,32 +36,40 @@
     tTableView.delegate = self;
     tTableView.dataSource = self;
     tTableView.frame = CGRectMake(20, 80, self.frame.size.width - 40, 300);
-    tTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    tTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self addSubview:tTableView];
     
     refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     refreshBtn.layer.opacity = .70;
     refreshBtn.layer.cornerRadius = 25.0;
     refreshBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:107/255.0 blue:171/255.0 alpha:1.0];
-    [refreshBtn addTarget:self
-               action:@selector(refeeshClick)
-     forControlEvents:UIControlEventTouchUpInside];
+    [refreshBtn addTarget:self action:@selector(refeeshClick) forControlEvents:UIControlEventTouchUpInside];
     [refreshBtn setTitle:@"R" forState:UIControlStateNormal];
     refreshBtn.frame = CGRectMake(20, 420, 50, 50);
     [self addSubview:refreshBtn];
-    
     
     bestBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     bestBtn.layer.opacity = .70;
     bestBtn.layer.cornerRadius = 25.0;
     bestBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:6.0/255.0 blue:40.0/255.0 alpha:1.0];
-    [bestBtn addTarget:self
-                   action:@selector(getBestAlgorithmForGPU)
-         forControlEvents:UIControlEventTouchUpInside];
+    [bestBtn addTarget:self action:@selector(getBestAlgorithmForGPU) forControlEvents:UIControlEventTouchUpInside];
     [bestBtn setTitle:@"B" forState:UIControlStateNormal];
     bestBtn.frame = CGRectMake(100, 420, 50, 50);
     [self addSubview:bestBtn];
+    
+    profitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    profitBtn.layer.opacity = .70;
+    profitBtn.layer.cornerRadius = 25.0;
+    profitBtn.backgroundColor = [UIColor colorWithRed:64.0/255.0 green:255.0/255.0 blue:0.0/255.0 alpha:1.0];
+    [profitBtn addTarget:self action:@selector(getProfit) forControlEvents:UIControlEventTouchUpInside];
+    [profitBtn setTitle:@"P" forState:UIControlStateNormal];
+    profitBtn.frame = CGRectMake(180, 420, 50, 50);
+    [self addSubview:profitBtn];
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 100);
+    spinner.hidesWhenStopped = YES;
+    [self addSubview:spinner];
     
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
     
@@ -68,13 +77,12 @@
 }
 
 - (void)refeeshClick {
-    [self getCurrentBTCPrice:currentBTCPriceUrl];
+    [self getCoinPrice:currentCoinPrice];
     [self getCurrentCoinPrice:coinPriceUrl];
 }
 
 - (void)updateTime:(NSTimer *)timer {
-    [self getCurrentBTCPrice:currentBTCPriceUrl];
-    [self getCurrentCoinPrice:coinPriceUrl];
+    [self refeeshClick];
 }
 
 - (void)getInitGPUData:(NSString *)url {
@@ -91,22 +99,44 @@
         gpu.lyra2rev2 = [[gpuDic valueForKey:@"lyra2rev2"] intValue];
         gpu.neoscrypt = [[gpuDic valueForKey:@"neoscrypt"] intValue];
         gpu.nist5 = [[gpuDic valueForKey:@"nist5"] intValue];
+        gpu.costWatt = [[gpuDic valueForKey:@"CostWatt"] intValue];
         [_gpuGroups addObject:gpu];
     }
 }
 
-- (void)getCurrentBTCPrice:(NSString *)url {
+- (void)getCoinPrice:(NSString *)url {
     [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
-        NSDictionary *dic = [result valueForKey:@"bpi"];
+        if (err != nil) {
+            [self showMsg:@"Error" subTitle:err.description];
+            return;
+        }
+        for (NSDictionary *dic in result) {
+            if ([[dic valueForKey:@"id"] isEqualToString:@"bitcoin"]) {//btc
+                self.currentBTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+            if ([[dic valueForKey:@"id"] isEqualToString:@"ethereum"]) {//eth
+                self.currentETHPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+            if ([[dic valueForKey:@"id"] isEqualToString:@"litecoin"]) {//ltc
+                self.currentLTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+            if ([[dic valueForKey:@"id"] isEqualToString:@"siacoin"]) {//sc
+                self.currentSCPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
-            _currentBTCPrice = [[[dic valueForKey:@"USD"] valueForKey:@"rate_float"] floatValue];
-            laBTCValue.text = [NSString stringWithFormat:@"BTC:%@$", [[dic valueForKey:@"USD"] valueForKey:@"rate"]];
+            laBTCValue.text = [NSString stringWithFormat:@"BTC:%1.3f$ ETH:%1.3f$ LTC:%1.3f$", self.currentBTCPrice, self.currentETHPrice, self.currentLTCPrice];
         });
     }];
 }
 
 - (void)getCurrentCoinPrice:(NSString *)url {
+    [spinner startAnimating];
     [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+        if (err != nil) {
+            [self showMsg:@"Error" subTitle:err.description];
+            return;
+        }
         NSArray *arr = [[result valueForKey:@"result"] valueForKey:@"simplemultialgo"];
         float equihashValue = [[arr[24] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
         float neoscryptValue = [[arr[8] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
@@ -117,30 +147,32 @@
         if (_gpuProf == nil) {
             _gpuProf = [[NSMutableArray alloc] init];
         }
+        
         [_gpuProf removeAllObjects];
         for (GpuType *gCard in self.gpuGroups) {
             NSMutableArray *arrData = [[NSMutableArray alloc] init];
             NSString *name = gCard.gpuName;
-            float euq = gCard.equihash*equihashValue*_currentBTCPrice;
-            float neo = gCard.neoscrypt*neoscryptValue*_currentBTCPrice;
-            float nist5 = gCard.nist5*nist5Value*_currentBTCPrice;
-            float lyra2rev2 = gCard.lyra2rev2*lyra2rev2Value*_currentBTCPrice;
-            float dag = gCard.daggerhashimoto*daggerhashimotoValue*_currentBTCPrice;
+            float costEfee = gCard.costWatt * 24 * 0.1 * 0.001;//default ele fee w * 24h *0.1usd *0.001
+            float euq = gCard.equihash * equihashValue * _currentBTCPrice - costEfee;
+            float neo = gCard.neoscrypt * neoscryptValue * _currentBTCPrice - costEfee;
+            float nist5 = gCard.nist5 * nist5Value * _currentBTCPrice - costEfee;
+            float lyra2rev2 = gCard.lyra2rev2 * lyra2rev2Value * _currentBTCPrice - costEfee;
+            float dag = gCard.daggerhashimoto * daggerhashimotoValue * _currentBTCPrice - costEfee;
             
-            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.2f", euq], @"profValue",
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", euq], @"profValue",
                                 @"equihash", @"algorithm", nil]];
-            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.2f", neo], @"profValue",
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", neo], @"profValue",
                                 @"neoscrypt", @"algorithm", nil]];
-            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.2f", nist5], @"profValue",
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", nist5], @"profValue",
                                 @"nist5", @"algorithm", nil]];
-            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.2f", lyra2rev2], @"profValue",
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", lyra2rev2], @"profValue",
                                 @"lyra2rev2", @"algorithm", nil]];
-            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.2f", dag], @"profValue",
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", dag], @"profValue",
                                 @"daggerhashimoto", @"algorithm", nil]];
-            
             [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data", name, @"Key", nil]];
-            }
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [spinner stopAnimating];
             [tTableView reloadData];
         });
     }];
@@ -151,7 +183,7 @@
     return [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 }
 
-- (void)readJsonfileToDictionary:(NSString *)urlString Completetion:(void (^) (NSDictionary * result, NSError * err))completion{
+- (void)readJsonfileToDictionary:(NSString *)urlString Completetion:(void (^) (NSDictionary * result, NSError * err))completion {
     NSURL *JSONURL = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:JSONURL];
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession]
@@ -182,7 +214,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return 30;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -201,10 +233,12 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+    
     NSString *profValue = [[self.gpuProf[indexPath.section] valueForKey:@"Data"][indexPath.row] valueForKey:@"profValue"];
     NSString *algorithm = [[self.gpuProf[indexPath.section] valueForKey:@"Data"][indexPath.row] valueForKey:@"algorithm"];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@ $", algorithm, profValue];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ => %@ $", algorithm, profValue];
     return cell;
 }
 
@@ -215,15 +249,45 @@
         NSString *betteralg = [self findMaxValue:[[dic valueForKey:@"Data"] allObjects]];
         [msg appendFormat: @"%@  %@$ \n", gpuName, betteralg];
     }
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Best Algorithm" message:msg preferredStyle:  UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    
-    }]];
-    [self.controller presentViewController:alert animated:YES completion:nil];
+    [self showMsg:@"Best Algorithm" subTitle:msg];
 }
 
--(NSString *) findMaxValue:(NSArray *)dataArray {
+- (void)getProfit {
+    [spinner startAnimating];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:balanceUrl]];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+      ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+          float btc = 0.0;
+          float eth = 0.0;
+          float ltc = 0.0;
+          float sc = 0.0;
+          NSArray *arr = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] allObjects];
+          for (NSDictionary *dic in arr) {
+              if ([dic valueForKey:@"BTC"] != nil) {
+                  btc = btc + [[dic valueForKey:@"BTC"] floatValue];
+              }
+              if ([dic valueForKey:@"ETH"] != nil) {
+                  eth = eth + [[dic valueForKey:@"ETH"] floatValue];
+              }
+              if ([dic valueForKey:@"LTC"] != nil) {
+                  ltc = ltc + [[dic valueForKey:@"LTC"] floatValue];
+              }
+              if ([dic valueForKey:@"SC"] != nil) {
+                  sc = sc + [[dic valueForKey:@"SC"] floatValue];
+              }
+          }
+          NSString *msg = [NSString stringWithFormat:@"BTC:%1.5f\n ETH:%1.3f\n LTC:%1.3f\n SC:%1.3f\n Profit:%1.3f$", btc, eth, ltc, sc, btc*_currentBTCPrice + eth*_currentETHPrice + ltc*_currentLTCPrice + sc *_currentSCPrice];
+          dispatch_async(dispatch_get_main_queue(), ^{
+              [spinner stopAnimating];
+              [self showMsg:@"Profit" subTitle:msg];
+          });
+      }] resume];
+}
+
+- (NSString *)findMaxValue:(NSArray *)dataArray {
     float MaxValue = 0;
     NSString *algorithmType = @"";
     for (NSDictionary *d in dataArray) {
@@ -233,6 +297,16 @@
         }
     }
     return  [NSString stringWithFormat:@"%@:%1.2f", algorithmType, MaxValue];
+}
+
+- (void)showMsg:(NSString *)title subTitle:(NSString *)subTitle {
+    popper = [[Popup alloc] initWithTitle:title subTitle:subTitle cancelTitle:@"" successTitle:@"確定"];
+    [popper setDelegate:self];
+    [popper setBackgroundBlurType:blurType];
+    [popper setIncomingTransition:incomingType];
+    [popper setOutgoingTransition:outgoingType];
+    [popper setRoundedCorners:YES];
+    [popper showPopup];
 }
 
 @end

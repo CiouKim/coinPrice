@@ -22,4 +22,6 @@
 
 @property(nonatomic) int daggerhashimoto;
 
+@property(nonatomic) int costWatt;
+
 @end
