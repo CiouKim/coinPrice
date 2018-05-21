@@ -1,0 +1,40 @@
+{
+    "GPUData":[
+               {
+               "GPU": "1080",
+               "daggerhashimoto": "23.5",
+               "equihash":"600",
+               "lyra2rev2":"46.5",
+               "neoscrypt":"1060",
+               "nist5":"58",
+               "CostWatt":"150"
+               },
+               {
+               "GPU": "1070TI",
+               "daggerhashimoto": "31.5",
+               "equihash":"540",
+               "lyra2rev2":"41.5",
+               "neoscrypt":"1050",
+               "nist5":"50",
+               "CostWatt":"130"
+               },
+               {
+               "GPU": "1063",
+               "daggerhashimoto": "25",
+               "equihash":"280",
+               "lyra2rev2":"23",
+               "neoscrypt":"62",
+               "nist5":"29",
+               "CostWatt":"100"
+               },
+               {
+               "GPU": "RX570",
+               "daggerhashimoto": "29",
+               "equihash":"260",
+               "lyra2rev2":"23",
+               "neoscrypt":"55",
+               "nist5":"18",
+               "CostWatt":"120"
+               }
+               ]
+}

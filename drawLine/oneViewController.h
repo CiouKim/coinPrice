@@ -8,10 +8,12 @@
 
 #import "ViewController.h"
 #import "LineView.h"
+#import "oneView.h"
 @class LineView;
 
 @interface oneViewController : UIViewController {
     LineView *view;
+    oneView *oView;
 }
 
 @property (nonatomic) LineView * lineView;

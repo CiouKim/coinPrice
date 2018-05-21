@@ -7,36 +7,52 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Popup.h"
 
 @class oneViewController;
 @class ViewController;
 
+@interface oneView : UIView <UITextFieldDelegate, PopupDelegate>{
+    UILabel *nv1063;
+    UILabel *nv1070ti;
+    UILabel *nv1080;
+    UILabel *amd570;
+    
+    
+    
+    UILabel *nv1063a;
+    UILabel *nv1070tia;
+    UILabel *nv1080a;
+    UILabel *amd570a;
 
-typedef enum {
-    btcType = 0,
-    ethType,
-    ltcType
-} CoinType;
-
-
-@interface oneView : UIView <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>{
-    UIButton *ethBtn;
-    UIButton *btcBtn;
-    UIButton *ltcBtn;
-    UIImageView *imgLogo;
-    UITableView *tTableView;
-    UITextField *iCloudKeyfield;
-    UIButton *iCloudUploadBtn;
+    
+    UITextField *nv1063Field;
+    UITextField *nv1070tiField;
+    UITextField *nv1080Field;
+    UITextField *amd570Field;
+    
+    UIButton *calcularBtn;
+    
+    UILabel *assumeIcomeLab;
+    
     UIActivityIndicatorView *spinner;
-    UILabel *label;
+    
+    Popup *popper;
+    
+    PopupBackGroundBlurType blurType;
+    PopupIncomingTransitionType incomingType;
+    PopupOutgoingTransitionType outgoingType;
+
 }
 
-@property (nonatomic, strong)  oneViewController * oneCtr;
-@property (nonatomic, strong)  ViewController* controller;
-@property (strong, nonatomic) NSMetadataQuery *query;
-@property (strong, nonatomic) NSMutableArray *fileList;
-@property (strong, nonatomic) NSArray *filedateArray;
-@property (nonatomic, assign) CoinType coinType;
+@property (nonatomic, readonly) NSMutableArray *gpuGroups;
+@property (nonatomic, readonly) NSMutableArray *gpuProf;
 
+@property float currentBTCPrice;
+@property float currentETHPrice;
+@property float currentLTCPrice;
+@property float currentSCPrice;
+
+- (void) getData;
 
 @end

@@ -11,466 +11,375 @@
 #import "LineView.h"
 #import "RTLabel.h"
 #import "iCloudHelper.h"
+#import "GpuType.h"
 
-#define btcToEth @"https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-eth"
-#define checkJsonURL @"https://clifeuat.s3.hicloud.net.tw/test/check.json"
-#define ALPHA @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"//英文
-#define ALPHANUM @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"//英文數字
-
+#define coinPriceUrl @"https://api.nicehash.com/api?method=simplemultialgo.info"
+#define balanceUrl @"https://auto-mover.firebaseio.com/balance.json"
+#define currentCoinPrice @"https://api.coinmarketcap.com/v1/ticker/?limit=50"
 
 @implementation oneView
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    
     self.backgroundColor = [UIColor clearColor];
     
-    imgLogo = [[UIImageView alloc] init];
-    imgLogo.image = [UIImage imageNamed: @"apple"];
-    imgLogo.frame = CGRectMake(20, 470, 50, 50);
-    [self addSubview:imgLogo];
-    
-    //    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-    //    NSString *documentsPath = paths.firstObject;
-    //    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"fileVersion.plist"];
-    
-    //    if file no exist fileVersion.plist means app is launch fist time write all json
-    //    else write unwrite or version change datas to fileVersion.plist
-    
-    //    if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath] == NO) {
-    //        [self readJsonfileToDictionary:checkJsonURL];
-    ////        [self readJsonfileToDictionary:[[NSBundle mainBundle] pathForResource:@"jsonData" ofType:@"json"]];
-    //        //        sample jsaonData.json =>> replace server all file data json file
-    //    } else {
-    //         [self readJsonfileToDictionary:checkJsonURL];
-    ////        [self readJsonfileToDictionary:[[NSBundle mainBundle] pathForResource:@"jsonDataNew" ofType:@"json"]];
-    //        //        sample jsonDataNew.jason =>> replace server new file data json file
-    //    }
+    int edge = 5;
+    int gap = 55;
+    int labelWidth = 150;
+    int labelHeight = 30;
+    int edgeField = 285;
     
     
-    ////    test get url json
-    //    NSString *str = [self getDataFrom:checkJsonURL];
-    //
-    //    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    //    NSArray *jasonDataArray = [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil] valueForKey:@"files"];
-    //
-    //
-    //    NSLog(@"str:%@", jasonDataArray);
+    int aField = 130;
     
+    int labeloriginalY = 40;
+    int fieldWidth = 50;
     
-#pragma mark -test HTML to label
-    //    RTLabel *label = [[RTLabel alloc] init];
-    //    [label setParagraphReplacement:@""];
-    //
-    //    NSString *dbstring = @"<@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br><@B>保單借款利率屬短期利率且具變動性，通常高於保單預定利率。另外，保戶辦理保單借款必須支付高於按保單預定利率計算之利息、中途解約亦可能有損失或無法獲得複利增值。</B><br>";
-    //    [label setText:dbstring];
-    //
-    //    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:dbstring];
-    //    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    //    style.lineSpacing = 12;
-    //    UIFont *font = [UIFont systemFontOfSize:14];
-    //    [attributeString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, dbstring.length)];
-    //    [attributeString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, dbstring.length)];
-    //    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
-    //    CGRect rect = [attributeString boundingRectWithSize:CGSizeMake(self.frame.size.width - 60, CGFLOAT_MAX) options:options context:nil];
-    //
-    //    [label setFrame:CGRectMake(30, 10, rect.size.width, rect.size.width)];
-    //    [self addSubview:label];
+    nv1063 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
+    nv1063.text = @"Nvidia-1063";
+    [nv1063 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [nv1063 setAdjustsFontSizeToFitWidth:YES];
+    [nv1063 setTextAlignment:NSTextAlignmentCenter];
+    [nv1063 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [self addSubview:nv1063];
     
-    
-    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    spinner.center = CGPointMake(self.frame.size.width/4, self.frame.size.height/4);
-    spinner.hidesWhenStopped = YES;
-    [spinner setColor: [UIColor grayColor]];
-    [self addSubview:spinner];
-    
-    iCloudKeyfield = [[UITextField alloc] init];
-    iCloudKeyfield.backgroundColor = [UIColor whiteColor];
-    iCloudKeyfield.layer.borderWidth = .5;
-    iCloudKeyfield.layer.cornerRadius = 5.0;
-    iCloudKeyfield.layer.opacity = .64;
-    iCloudKeyfield.frame = CGRectMake(20, 80, 140, 40);
-    iCloudKeyfield.delegate = self;
-    [self addSubview:iCloudKeyfield];
-    
-    iCloudUploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [iCloudUploadBtn setTitle:@"iCloud上傳" forState:UIControlStateNormal];
-    iCloudUploadBtn.layer.opacity = .64;
-    iCloudUploadBtn.layer.cornerRadius = 5.0;
-    iCloudUploadBtn.backgroundColor = [UIColor blueColor];
-    [iCloudUploadBtn addTarget:self action:@selector(iCloudUploadBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    iCloudUploadBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-    iCloudUploadBtn.frame = CGRectMake(200, 80, 100, 40);
-    [self addSubview:iCloudUploadBtn];
-    
-    tTableView = [[UITableView alloc]init];
-    tTableView.showsVerticalScrollIndicator = NO;
-    tTableView.delegate = self;
-    tTableView.dataSource = self;
-    tTableView.frame = CGRectMake(20, 160, 420, 260);
-    tTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-    [self addSubview:tTableView];
-    
-    label = [[UILabel alloc] initWithFrame:CGRectMake(150, 470, 120, 30)];
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor blackColor];
-//    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont systemFontOfSize:12];
-    label.adjustsFontSizeToFitWidth = YES;
-    label.text = @"11111";
-    [self addSubview:label];
+    nv1063a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
+    nv1063a.text = @"";
+    [nv1063a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [nv1063a setAdjustsFontSizeToFitWidth:YES];
+    [nv1063a setTextAlignment:NSTextAlignmentLeft];
+    [nv1063a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [self addSubview:nv1063a];
 
+    nv1063Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    [self setFieldStyle:nv1063Field];
+    [self addSubview:nv1063Field];
     
+    labeloriginalY += gap;
     
-#pragma mark -iCloud iCloud fileList test
-    [self loadiCloudData];
-//    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(backgroundaSync) userInfo:nil repeats:YES];
+    nv1070ti = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
+    nv1070ti.text = @"Nvidia-1070ti";
+    [nv1070ti setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [nv1070ti setAdjustsFontSizeToFitWidth:YES];
+    [nv1070ti setTextAlignment:NSTextAlignmentCenter];
+    [nv1070ti setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [self addSubview:nv1070ti];
+    
+    nv1070tia = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
+    nv1070tia.text = @"";
+    [nv1070tia setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [nv1070tia setAdjustsFontSizeToFitWidth:YES];
+    [nv1070tia setTextAlignment:NSTextAlignmentLeft];
+    [nv1070tia setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [self addSubview:nv1070tia];
+
+    nv1070tiField = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    [self setFieldStyle:nv1070tiField];
+    [self addSubview:nv1070tiField];
+    
+    labeloriginalY += gap;
+    
+    nv1080 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
+    nv1080.text = @"Nvidia-1080";
+    [nv1080 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [nv1080 setAdjustsFontSizeToFitWidth:YES];
+    [nv1080 setTextAlignment:NSTextAlignmentCenter];
+    [nv1080 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [self addSubview:nv1080];
+    
+    nv1080a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
+    nv1080a.text = @"";
+    [nv1080a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [nv1080a setAdjustsFontSizeToFitWidth:YES];
+    [nv1080a setTextAlignment:NSTextAlignmentLeft];
+    [nv1080a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [self addSubview:nv1080a];
+
+    nv1080Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    [self setFieldStyle:nv1080Field];
+    [self addSubview:nv1080Field];
+
+    labeloriginalY += gap;
+    
+    amd570 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
+    amd570.text = @"AMD-570";
+    [amd570 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [amd570 setAdjustsFontSizeToFitWidth:YES];
+    [amd570 setTextAlignment:NSTextAlignmentCenter];
+    [amd570 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [self addSubview:amd570];
+    
+    amd570a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
+    amd570a.text = @"";
+    [amd570a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [amd570a setAdjustsFontSizeToFitWidth:YES];
+    [amd570a setTextAlignment:NSTextAlignmentLeft];
+    [amd570a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [self addSubview:amd570a];
+
+    amd570Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    [self setFieldStyle:amd570Field];
+    [self addSubview:amd570Field];
+    
+    calcularBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    calcularBtn.layer.opacity = .70;
+    calcularBtn.layer.cornerRadius = 25.0;
+    calcularBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:6.0/255.0 blue:40.0/255.0 alpha:1.0];
+    [calcularBtn addTarget:self action:@selector(calcularBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [calcularBtn setTitle:@"Calcular" forState:UIControlStateNormal];
+    calcularBtn.frame = CGRectMake(self.frame.size.width/2 - 75, self.frame.size.height -  250, 150, 50);
+    [self addSubview:calcularBtn];
+
+    assumeIcomeLab = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - 75, self.frame.size.height -  150, 150, 50)];
+    assumeIcomeLab.text = @"Total:0 USDT";
+    [assumeIcomeLab setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [assumeIcomeLab setAdjustsFontSizeToFitWidth:YES];
+    [assumeIcomeLab setTextAlignment:NSTextAlignmentCenter];
+    [assumeIcomeLab setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [self addSubview:assumeIcomeLab];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    [self addGestureRecognizer:tapGesture];
     
     return self;
 }
 
--(void)layoutSubviews {
+- (void)tap:(id)sender {
+    [self endEditing:YES];
+}
+
+
+- (void)layoutSubviews {
     [super layoutSubviews];
 }
 
-#pragma mark - read json data to Dictionary
-- (void)readJsonfileToDictionary:(NSString *)filePathUrl {
-    if (filePathUrl) {
-        NSString *str = [self getDataFrom:filePathUrl];
-        NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error;
-        NSDictionary *jsondataDic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                    options:0
-                                                                      error:&error];
-        if (error) {
-            NSLog(@"error:%@", error.localizedDescription);
-        } else {
-            NSDictionary *response = [jsondataDic valueForKey:@"iShareData"];
-            NSArray *objects = [response allValues];
-            NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsPath = paths.firstObject;
-            NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"fileVersion.plist"];
-            NSError *writeError = nil;
-            if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath] == NO) {
-                NSData *plistData = [NSPropertyListSerialization dataWithPropertyList:objects format:NSPropertyListXMLFormat_v1_0 options:NSPropertyListImmutable error:&writeError];
-                if (plistData) {
-                    [plistData writeToFile:plistPath atomically:YES];
-                } else {
-                    NSLog(@"Error in saveData: %@", error);
-                }
-            } else {
-                for (NSDictionary *dic in objects) {
-                    [self setFileNameAndVersion:[dic valueForKey:@"fileName"] fileVersion:[dic valueForKey:@"Version"] urlPath:[dic valueForKey:@"url"] fileID:[dic valueForKey:@"id"] fileType:[dic valueForKey:@"type"]];
-                }
-            }
-        }
-    } else {
-        NSLog(@"file no exist");
-    }
+- (NSDictionary *)jsonFromFile:(NSString *)path {
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    return [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 }
 
-#pragma mark - write json data to fileVersion.plist
-- (void)setFileNameAndVersion:(NSString*)fileName fileVersion:(NSString*)fileVersion urlPath:(NSString *)urlStr fileID:(NSString *)fileID fileType:(NSString *)fileType {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsPath = paths.firstObject;
-    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"fileVersion.plist"];
-    
-    //    prevent
-    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        plistPath = [[NSBundle mainBundle] pathForResource:@"fileVersion" ofType:@"plist"];
+- (void)readJsonfileToDictionary:(NSString *)urlString Completetion:(void (^) (NSDictionary * result, NSError * err))completion {
+    NSURL *JSONURL = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:JSONURL];
+    NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession]
+                                       dataTaskWithRequest:request
+                                       completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                           if (data == nil) {
+                                               completion(nil, error);
+                                               return;
+                                           }
+                                           NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                           NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+                                           NSError *errDic;
+                                           NSDictionary *jsonDataDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                                                       options:0
+                                                                                                         error:&errDic];
+                                           completion(jsonDataDic, errDic);
+                                       }];
+    [dataTask resume];
+}
+
+- (void)getInitGPUData:(NSString *)url {
+    if (_gpuGroups == nil) {
+        _gpuGroups = [[NSMutableArray alloc] init];
     }
     
-    NSData *plistData = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-    NSString *errorDesc = nil;
-    NSPropertyListFormat format;
-    //    convert static property list into dictionary object
-    NSArray *plistDataArray = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
-    NSMutableArray *newData = [plistDataArray mutableCopy];
-    if (!plistDataArray) {
-        NSLog(@"Error reading: %@, format: %lu", errorDesc, (unsigned long)format);
-    }
-    
-    BOOL isNewFile = YES;
-    NSMutableDictionary *newDataDictionary = [[NSMutableDictionary alloc] init];
-    for (NSDictionary *dic in plistDataArray) {
-        if ([[dic valueForKey:@"name"] isEqualToString:fileName]) {
-            if ([[dic valueForKey:@"Version"] isEqualToString:fileVersion] == NO) {
-                NSLog(@"Version change");
-                [newDataDictionary setValue:fileName forKey:@"fileName"];
-                [newDataDictionary setValue:fileVersion forKey:@"Version"];
-                //            find  file version be need be edit
-                NSUInteger index = [newData indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-                    return [[(NSDictionary *)obj objectForKey:@"fileName"] isEqualToString:fileName];
-                }];
-                if (index != NSNotFound) {
-                    [newData removeObjectAtIndex:index];
-                }
-                [newData addObject:newDataDictionary];
-            }
-            isNewFile = NO;
-            break;
-        }
-    }
-    if (isNewFile == YES) {
-        [newDataDictionary setValue:fileName forKey:@"fileName"];
-        [newDataDictionary setValue:fileVersion forKey:@"Version"];
-        [newDataDictionary setValue:urlStr forKey:@"url"];
-        [newDataDictionary setValue:fileID forKey:@"id"];
-        [newDataDictionary setValue:fileType forKey:@"type"];
-        [newData addObject:newDataDictionary];
-    }
-    
-    [newData writeToFile:plistPath atomically:YES];
-}
-
-- (NSString *)getDataFrom:(NSString *)url {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:url]];
-    NSError *error = nil;
-    NSHTTPURLResponse *responseCode = nil;
-    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-    if ([responseCode statusCode] != 200) {
-        NSLog(@"Error getting %@, HTTP status code %li", url, (long)[responseCode statusCode]);
-        return nil;
-    }
-    return [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
-}
-
-#pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //    return [self.fileList count];
-    return [_filedateArray count];
-}
-
-#pragma mark -UITableViewDelegate
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCellStyle style = UITableViewCellStyleDefault;
-    UITableViewCell *tCell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:@"testCell"];;
-    if (!tCell) {
-        
-        tCell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:@"testCell"];
-        tCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    //    tCell.textLabel.text = [NSString stringWithFormat:@"%@--Date:%@", [self.fileList[indexPath.row] valueForKey:@"fileName"] ,[self.fileList[indexPath.row] valueForKey:@"time"]];
-    
-    tCell.textLabel.text = [NSString stringWithFormat:@"%@--Date:%@", [self.filedateArray[indexPath.row] valueForKey:@"fileName"] ,[self.filedateArray[indexPath.row] valueForKey:@"time"]];
-    
-    return tCell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-#pragma mark -iCloud iCloud download from iCloud Box test
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    //    [self downloadFromiCloud:[self.fileList[indexPath.row] valueForKey:@"fileName"] filePath:[NSString stringWithFormat:@"%@/%@.png", path, [self.fileList[indexPath.row] valueForKey:@"fileName"]]];
-    
-    [self downloadFromiCloud:[self.filedateArray[indexPath.row] valueForKey:@"fileName"] filePath:[NSString stringWithFormat:@"%@/%@.png", path, [self.filedateArray[indexPath.row] valueForKey:@"fileName"]]];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-#pragma mark -iCloud iCloud delete from iCloud Box test
-    if (spinner == nil) {
-        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        spinner.center = CGPointMake(self.frame.size.width/4, self.frame.size.height/4);
-        spinner.hidesWhenStopped = YES;
-        [spinner setColor: [UIColor grayColor]];
-        [self addSubview:spinner];
-    }
-    [spinner startAnimating];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [iCloudHelper deleteiCloudFile:[self.filedateArray[indexPath.row] valueForKey:@"fileName"] resultBlock:^(id obj) {
-            if (obj != nil) {
-                NSError *err = (NSError *)obj;
-                NSLog(@"iCloudError:%@", err);
-            }
-        }];
-        [spinner stopAnimating];
-    });
-    NSLog(@"deleteFileKey:%@", [self.filedateArray[indexPath.row] valueForKey:@"fileName"]);
-}
-
-#pragma loadiCloudData form iCloud Box
-- (void)loadiCloudData {
-    if (!self.query) {
-        self.query = [[NSMetadataQuery alloc] init];
-        self.query.searchScopes = @[NSMetadataQueryUbiquitousDocumentsScope];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(metadataQueryFinish:)
-                                                     name:NSMetadataQueryDidFinishGatheringNotification
-                                                   object:self.query];//数据获取完成通知
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(metadataQueryFinish:)
-                                                     name:NSMetadataQueryDidUpdateNotification
-                                                   object:self.query];//查询更新通知
-    }
-    //getData
-    [self.query startQuery];
-}
-
-#pragma mark - iCloud get data from box
-- (void)metadataQueryFinish:(NSNotification *)notification {
-    NSLog(@"iCloud get data scuessful");
-    NSArray *items = self.query.results;
-    if (self.fileList == nil) {
-        self.fileList = [[NSMutableArray alloc] init];
-    } else {
-        [self.fileList removeAllObjects];
-    }
-    
-    [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSMetadataItem *item = obj;
-        NSString *fileName = [item valueForAttribute:NSMetadataItemFSNameKey];
-        NSDate *date = [item valueForAttribute:NSMetadataItemFSContentChangeDateKey];
-        NSDateFormatter *dateformate = [[NSDateFormatter alloc] init];
-        dateformate.dateFormat = @"YYYY/MM/dd HH:mm";
-        NSString *dateString = [dateformate stringFromDate:date];
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:dateString forKey:@"time"];
-        [dict setObject:fileName forKey:@"fileName"];
-        [self.fileList addObject:dict];
-    }];
-    
-    if (_filedateArray == nil) {
-        _filedateArray = [[NSArray alloc] init];
-    }
-    
-    _filedateArray = [self.fileList sortedArrayUsingComparator:^(id obj1, id obj2) {
-        NSDateFormatter *dateformate = [[NSDateFormatter alloc] init];
-        dateformate.dateFormat = @"YYYY/MM/dd HH:mm";
-        NSDictionary *data1 = obj1;
-        NSDictionary *data2 = obj2;
-        NSDate *date1 = [dateformate dateFromString:[data1 valueForKey:@"time"]];
-        NSDate *date2 = [dateformate dateFromString:[data2 valueForKey:@"time"]];
-        
-        if (date1 > date2) {
-            return (NSComparisonResult)NSOrderedAscending;
-        } else if (date1 < date2) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        return (NSComparisonResult)NSOrderedSame;
-    }];
-    [tTableView reloadData];
-    
-    //    switch (_coinType) {
-    //        case btcType:
-    //            break;
-    //        case ethType:
-    //            break;
-    //        case ltcType:
-    //            break;
-    //        default:
-    //            break;
-    //    }
-}
-
-#pragma mark -download file From iCloud box
-- (void)downloadFromiCloud:(NSString *)iCloudfilekey filePath:(NSString *)filePath {
-    if ([iCloudHelper iCloudEnable]) {
-        NSLog(@"%s", __func__);
-        NSLog(@"iCloud enable");
-        if (spinner == nil) {
-            spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            spinner.center = CGPointMake(self.frame.size.width/4, self.frame.size.height/4);
-            spinner.hidesWhenStopped = YES;
-            [spinner setColor: [UIColor grayColor]];
-            [self addSubview:spinner];
-        }
-        
-        [spinner startAnimating];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [iCloudHelper downloadFromiCloudWithBlock:^(id obj) {
-                if (obj != nil) {
-                    NSData *data = (NSData *)obj;
-                    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-                    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-                    }
-                    [data writeToFile:filePath atomically:YES];
-                    NSLog(@"sync download Scuessful");
-                } else {
-                    NSLog(@"Sync download fail");
-                }
-            } iCloudName:iCloudfilekey];
-            [spinner stopAnimating];
-        });
-    } else {
-        NSLog(@"iCloud unenable");
+    NSArray *arr = [[[self jsonFromFile:url] valueForKey:@"GPUData"] allObjects];
+    for (NSDictionary *gpuDic in arr) {
+        GpuType *gpu = [[GpuType alloc] init];
+        gpu.gpuName = [NSString stringWithFormat:@"%@", [gpuDic valueForKey:@"GPU"]];
+        gpu.daggerhashimoto = [[gpuDic valueForKey:@"daggerhashimoto"] intValue];
+        gpu.equihash = [[gpuDic valueForKey:@"equihash"] intValue];
+        gpu.lyra2rev2 = [[gpuDic valueForKey:@"lyra2rev2"] intValue];
+        gpu.neoscrypt = [[gpuDic valueForKey:@"neoscrypt"] intValue];
+        gpu.nist5 = [[gpuDic valueForKey:@"nist5"] intValue];
+        gpu.costWatt = [[gpuDic valueForKey:@"CostWatt"] intValue];
+        [_gpuGroups addObject:gpu];
     }
 }
 
-#pragma upload file to iCloud box
-- (void)updataTOiCloud:(NSString *)iCloudfilekey filePath:(NSString *)filePath {
-    if ([iCloudHelper iCloudEnable]) {
-        NSLog(@"%s", __func__);
-        NSLog(@"iCloud enable");
-        if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-            NSLog(@"img exist");
-            if (spinner == nil) {
-                spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-                spinner.center = CGPointMake(self.frame.size.width/4, self.frame.size.height/4);
-                spinner.hidesWhenStopped = YES;
-                [spinner setColor: [UIColor grayColor]];
-                [self addSubview:spinner];
-            }
-            
-            [spinner startAnimating];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [iCloudHelper uploadToiCloud:filePath iCloudNam:iCloudfilekey resultBlock:^(NSError *err) {
-                    if (err == nil) {
-                        NSLog(@"iCLoud Sync scuessful");
-                    } else {
-                        NSLog(@"iCLoud Sync fail");
-                    }
-                }];
-                [spinner stopAnimating];
-            });
-        } else {
-            NSLog(@"img no exist");
-        }
-    } else {
-        NSLog(@"iCloud unenable");
-    }
+- (void)setFieldStyle:(UITextField *)field {
+    [field setKeyboardType:UIKeyboardTypeDefault];
+    [field setBorderStyle:UITextBorderStyleNone];
+    [field setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0f]];
+    [field setTextColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.9]];
+    [field setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
+    [field setSpellCheckingType:UITextSpellCheckingTypeNo];
+    [field setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [field setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    [field setKeyboardAppearance:UIKeyboardAppearanceDark];
+    [field.layer setBorderColor:[UIColor colorWithWhite:0.8 alpha:1.0].CGColor];
+    [field.layer setBorderWidth:1.0];
+    [field.layer setCornerRadius:4.0];
+    [field setTextAlignment:NSTextAlignmentCenter];
+    [field setPlaceholder:@"片"];
+    [field setDelegate:self];
+
+    [field.layer setMasksToBounds:YES];
 }
 
-#pragma mark -iCloud iCloud upload test
-- (void)iCloudUploadBtnClick {
-    NSString *iCloudfilekey = iCloudKeyfield.text;
-    if ([iCloudfilekey isEqualToString:@""] == NO) {
-        NSString *imgPath = [[NSBundle mainBundle] pathForResource:@"apple13" ofType:@"png"];
-        //    NSString *imgPath = [[NSBundle mainBundle] pathForResource:@"CkmainCRM_Cust" ofType:@"db"];
-        [self updataTOiCloud:iCloudfilekey filePath:imgPath];
-    } else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Enter file key Value" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Y" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:okAction];
-    }
-    iCloudKeyfield.text = @"";
-}
-
-#pragma mark -UITextfieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    //only English & Number
-    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ALPHANUM] invertedSet];
-    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString: @""];
-    return [string isEqualToString:filtered];
+    if(string.length > 0)
+    {
+        NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:string];
+        
+        BOOL stringIsValid = [numbersOnly isSupersetOfSet:characterSetFromTextField];
+        return stringIsValid;
+    }
+    return YES;
 }
 
-- (void)backgroundaSync {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_async(group, queue, ^{
-            NSString *str = [self getDataFrom:btcToEth];
-            NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
-            NSError *error;
-            NSDictionary *jsondataDic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                        options:0
-                                                                          error:&error];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSNumber *lastValue = [[jsondataDic valueForKey:@"result"] valueForKey:@"Last"][0];
-                label.text = [NSString stringWithFormat:@"%@", lastValue];
-            });
-    });
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)getCoinPrice:(NSString *)url {
+        [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+        if (err != nil) {
+            [self showMsg:@"ErrorMessage" subTitle:err.description];
+            return;
+        }
+        for (NSDictionary *dic in result) {
+            if ([[dic valueForKey:@"id"] isEqualToString:@"bitcoin"]) {//btc
+                self.currentBTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+            if ([[dic valueForKey:@"id"] isEqualToString:@"ethereum"]) {//eth
+                self.currentETHPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+            if ([[dic valueForKey:@"id"] isEqualToString:@"litecoin"]) {//ltc
+                self.currentLTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+            if ([[dic valueForKey:@"id"] isEqualToString:@"siacoin"]) {//sc
+                self.currentSCPrice = [[dic valueForKey:@"price_usd"] floatValue];
+            }
+        }
+    }];
+}
+
+- (void)getCurrentCoinPrice:(NSString *)url {
+    [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+        if (err != nil) {
+            [self showMsg:@"ErrorMessage" subTitle:err.description];
+            [spinner stopAnimating];
+            return;
+        }
+        NSArray *arr = [[result valueForKey:@"result"] valueForKey:@"simplemultialgo"];
+        float equihashValue = [[arr[24] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
+        float neoscryptValue = [[arr[8] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
+        float nist5Value = [[arr[7] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
+        float lyra2rev2Value = [[arr[14] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
+        float daggerhashimotoValue = [[arr[20] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
+        
+        if (_gpuProf == nil) {
+            _gpuProf = [[NSMutableArray alloc] init];
+        }
+        
+        [_gpuProf removeAllObjects];
+        for (GpuType *gCard in self.gpuGroups) {
+            NSMutableArray *arrData = [[NSMutableArray alloc] init];
+            NSString *name = gCard.gpuName;
+            float costEfee = gCard.costWatt * 24 * 0.1 * 0.001;//default ele fee w * 24h *0.1usd *0.001
+            float euq = gCard.equihash * equihashValue * _currentBTCPrice - costEfee;
+            float neo = gCard.neoscrypt * neoscryptValue * _currentBTCPrice - costEfee;
+            float nist5 = gCard.nist5 * nist5Value * _currentBTCPrice - costEfee;
+            float lyra2rev2 = gCard.lyra2rev2 * lyra2rev2Value * _currentBTCPrice - costEfee;
+            float dag = gCard.daggerhashimoto * daggerhashimotoValue * _currentBTCPrice - costEfee;
+            
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", euq], @"profValue",
+                                @"equihash", @"algorithm", nil]];
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", neo], @"profValue",
+                                @"neoscrypt", @"algorithm", nil]];
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", nist5], @"profValue",
+                                @"nist5", @"algorithm", nil]];
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", lyra2rev2], @"profValue",
+                                @"lyra2rev2", @"algorithm", nil]];
+            [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", dag], @"profValue",
+                                @"daggerhashimoto", @"algorithm", nil]];
+            
+            NSString *fAlgorithmValue = [NSString stringWithFormat:@"%.3f", [self getBestAlgorithmValue:arrData]];
+            
+            [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data", name, @"Key", fAlgorithmValue , @"bestAlgorithmValue",nil]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            nv1063a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1063"]];
+            nv1070tia.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1070TI"]];
+            nv1080a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1080"]];
+            amd570a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"RX570"]];
+        });
+
+    }];
+}
+
+- (void)showMsg:(NSString *)title subTitle:(NSString *)subTitle {
+    popper = [[Popup alloc] initWithTitle:title subTitle:subTitle cancelTitle:@"" successTitle:@"確定"];
+    [popper setDelegate:self];
+    [popper setBackgroundBlurType:blurType];
+    [popper setIncomingTransition:incomingType];
+    [popper setOutgoingTransition:outgoingType];
+    [popper setRoundedCorners:YES];
+    [popper showPopup];
+}
+
+- (void)calcularBtnClick {
+    [self getData];
+    int nv1063num = nv1063Field.text == nil ? 0 : [nv1063Field.text intValue];
+    int nv1070tinum = nv1070tiField.text == nil ? 0 : [nv1070tiField.text intValue];
+    int nv1080num = nv1080Field.text == nil ? 0 : [nv1080Field.text intValue];
+    int amd570num = amd570Field.text == nil ? 0 : [amd570Field.text intValue];
+    float total = 0.0;
+    for (NSDictionary *dic in self.gpuProf) {
+        if ([[dic valueForKey:@"Key"] isEqualToString:@"RX570"]) {
+            total += amd570num* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
+        }
+
+        if ([[dic valueForKey:@"Key"] isEqualToString:@"1063"]) {
+            total += nv1063num* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
+        }
+
+        if ([[dic valueForKey:@"Key"] isEqualToString:@"1070TI"]) {
+            total += nv1070tinum* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
+        }
+
+        if ([[dic valueForKey:@"Key"] isEqualToString:@"1080"]) {
+            total += nv1080num* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
+        }
+    }
+    assumeIcomeLab.text = [NSString stringWithFormat:@"Total:%.3f USDT", total];
+}
+
+- (void)getData {
+    [self getInitGPUData:[[NSBundle mainBundle] pathForResource:@"GpuGroup" ofType:@"json"]];
+    [self getCoinPrice:currentCoinPrice];
+    [self getCurrentCoinPrice:coinPriceUrl];
+}
+
+- (float)getBestAlgorithmValue:(NSArray *)data {
+    float maxValue = 0;
+    for (NSDictionary *dic in data) {
+        if ([[dic valueForKey:@"profValue"] floatValue] > maxValue) {
+            maxValue = [[dic valueForKey:@"profValue"] floatValue];
+        }
+    }
+    return maxValue;
+}
+
+- (NSString *)getBestAlgorithm:(NSString *)str {
+    float maxValue = 0;
+    NSString *stirng = @"414141";
+    for (NSDictionary *dic in _gpuProf) {
+        if ([[dic valueForKey:@"Key"] isEqualToString:str]) {
+            for (NSDictionary *d in [[dic valueForKey:@"Data"] allObjects]) {
+                if ([[d valueForKey:@"profValue"] floatValue] > maxValue) {
+                    maxValue = [[d valueForKey:@"profValue"] floatValue];
+                    stirng = [d valueForKey:@"algorithm"];
+                }
+            }
+        }
+        
+    }
+    return stirng;
 }
 
 @end

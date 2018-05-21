@@ -27,9 +27,6 @@
     laBTCValue.font = [UIFont systemFontOfSize:13];
     
     [self addSubview:laBTCValue];
-    [self getCurrentCoinPrice:coinPriceUrl];
-    [self getCoinPrice:currentCoinPrice];
-    [self getInitGPUData:[[NSBundle mainBundle] pathForResource:@"GpuGroup" ofType:@"json"]];
     
     tTableView = [[UITableView alloc]init];
     tTableView.showsVerticalScrollIndicator = NO;
@@ -66,12 +63,26 @@
     profitBtn.frame = CGRectMake(180, 420, 50, 50);
     [self addSubview:profitBtn];
     
+    assumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    assumeBtn.layer.opacity = .70;
+    assumeBtn.layer.cornerRadius = 25.0;
+    assumeBtn.backgroundColor = [UIColor colorWithRed:133.0/255.0 green:255.0/255.0 blue:0.0/255.0 alpha:1.0];
+    [assumeBtn addTarget:self action:@selector(assumeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [assumeBtn setTitle:@"A" forState:UIControlStateNormal];
+    assumeBtn.frame = CGRectMake(260, 420, 50, 50);
+    [self addSubview:assumeBtn];
+    
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     spinner.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 100);
     spinner.hidesWhenStopped = YES;
     [self addSubview:spinner];
     
+    
+    [self getInitGPUData:[[NSBundle mainBundle] pathForResource:@"GpuGroup" ofType:@"json"]];
+
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+    
+    [self refeeshClick];
     
     return self;
 }
@@ -107,7 +118,7 @@
 - (void)getCoinPrice:(NSString *)url {
     [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
         if (err != nil) {
-            [self showMsg:@"Error" subTitle:err.description];
+            [self showMsg:@"ErrorMessage" subTitle:err.description];
             return;
         }
         for (NSDictionary *dic in result) {
@@ -134,7 +145,7 @@
     [spinner startAnimating];
     [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
         if (err != nil) {
-            [self showMsg:@"Error" subTitle:err.description];
+            [self showMsg:@"ErrorMessage" subTitle:err.description];
             return;
         }
         NSArray *arr = [[result valueForKey:@"result"] valueForKey:@"simplemultialgo"];
@@ -213,12 +224,13 @@
     return [[self.gpuProf[section] valueForKey:@"Data"] count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 30;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [_gpuProf[section] valueForKey:@"Key"];
+}
+
+#pragma -UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 30;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -287,6 +299,13 @@
       }] resume];
 }
 
+- (void)assumeBtnClick {
+    if (oneVC == nil) {
+        oneVC = [[oneViewController alloc] init];
+    }
+    [self.controller.navigationController pushViewController:oneVC animated:NO];
+}
+
 - (NSString *)findMaxValue:(NSArray *)dataArray {
     float MaxValue = 0;
     NSString *algorithmType = @"";
@@ -310,3 +329,4 @@
 }
 
 @end
+

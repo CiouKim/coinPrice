@@ -18,20 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if(view == nil) {
-        view = [[LineView alloc] initWithFrame:self.view.bounds];
+    if (oView == nil) {
+        oView = [[oneView alloc] initWithFrame:self.view.bounds];
     }
-
-    view.type = self.cointype;
-    self.lineView = view;
-    [view setDrawData];
-    [self.view addSubview:view];
     
-    UIBarButtonItem *BackBtn = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = BackBtn;
+    [oView getData];
     
-    // Do any additional setup after loading the view.
+    [self.view addSubview:oView];
+    self.navigationItem.title = @"Assume Income";
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

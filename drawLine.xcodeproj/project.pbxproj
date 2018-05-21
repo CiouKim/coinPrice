@@ -10,7 +10,7 @@
 		7C3883C72005D90300968D9F /* jsonDataNew.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C3883C62005D90300968D9F /* jsonDataNew.json */; };
 		7C60F6BA205A48A7009FB4E8 /* profView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C60F6B9205A48A7009FB4E8 /* profView.m */; };
 		7C60F6CC205A5C6C009FB4E8 /* GpuType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C60F6CB205A5C6C009FB4E8 /* GpuType.m */; };
-		7C60F6CE205A62ED009FB4E8 /* GpuGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C60F6CD205A62ED009FB4E8 /* GpuGroup.json */; };
+		7C61319920634F5800068B57 /* GpuGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C61319820634F5800068B57 /* GpuGroup.json */; };
 		7C62AAE51FFE1A7800CE9B02 /* oneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C62AAE41FFE1A7800CE9B02 /* oneViewController.m */; };
 		7C62AAE81FFE1AA900CE9B02 /* oneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C62AAE71FFE1AA900CE9B02 /* oneView.m */; };
 		7C689169202D764100488FF5 /* CkmainCRM_Cust.db in Resources */ = {isa = PBXBuildFile; fileRef = 7C689168202D764100488FF5 /* CkmainCRM_Cust.db */; };
@@ -33,7 +33,7 @@
 		7C60F6B9205A48A7009FB4E8 /* profView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = profView.m; sourceTree = "<group>"; };
 		7C60F6CA205A5C6C009FB4E8 /* GpuType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GpuType.h; sourceTree = "<group>"; };
 		7C60F6CB205A5C6C009FB4E8 /* GpuType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GpuType.m; sourceTree = "<group>"; };
-		7C60F6CD205A62ED009FB4E8 /* GpuGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = GpuGroup.json; path = ../../GpuGroup.json; sourceTree = "<group>"; };
+		7C61319820634F5800068B57 /* GpuGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GpuGroup.json; sourceTree = "<group>"; };
 		7C62AAE31FFE1A7800CE9B02 /* oneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oneViewController.h; sourceTree = "<group>"; };
 		7C62AAE41FFE1A7800CE9B02 /* oneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oneViewController.m; sourceTree = "<group>"; };
 		7C62AAE61FFE1AA900CE9B02 /* oneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oneView.h; sourceTree = "<group>"; };
@@ -114,8 +114,8 @@
 				7C60F6B8205A48A7009FB4E8 /* profView.h */,
 				7C60F6B9205A48A7009FB4E8 /* profView.m */,
 				7C689168202D764100488FF5 /* CkmainCRM_Cust.db */,
-				7C60F6CD205A62ED009FB4E8 /* GpuGroup.json */,
 				7C3883C62005D90300968D9F /* jsonDataNew.json */,
+				7C61319820634F5800068B57 /* GpuGroup.json */,
 				7C7B196B1FFB3179004A5D21 /* Info.plist */,
 			);
 			path = drawLine;
@@ -216,7 +216,7 @@
 				7C7EAF7020315D9E0094805C /* apple13.png in Resources */,
 				7C689169202D764100488FF5 /* CkmainCRM_Cust.db in Resources */,
 				7C3883C72005D90300968D9F /* jsonDataNew.json in Resources */,
-				7C60F6CE205A62ED009FB4E8 /* GpuGroup.json in Resources */,
+				7C61319920634F5800068B57 /* GpuGroup.json in Resources */,
 				7CD32B012003364B00E7293C /* apple.png in Resources */,
 				7C7B19671FFB3179004A5D21 /* Assets.xcassets in Resources */,
 			);

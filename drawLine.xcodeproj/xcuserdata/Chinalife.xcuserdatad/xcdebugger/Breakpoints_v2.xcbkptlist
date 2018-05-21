@@ -218,12 +218,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "drawLine/profView.m"
-            timestampString = "543203551.031372"
+            timestampString = "548583440.328752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "-getCurrentCoinPrice:"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "-getBestAlgorithmForGPU"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,13 +233,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "drawLine/profView.m"
-            timestampString = "543203554.00228"
+            filePath = "drawLine/oneView.m"
+            timestampString = "548583440.329716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "-getCoinPrice:"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
+            landmarkName = "-getBestAlgorithm:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "drawLine/oneView.m"
+            timestampString = "548583440.330587"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "-getCurrentCoinPrice:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

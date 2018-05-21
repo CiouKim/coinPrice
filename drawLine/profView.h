@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 #import "Popup.h"
+#import "oneViewController.h"
+
 
 @interface profView : UIView <UITableViewDelegate, UITableViewDataSource, PopupDelegate> {
     UILabel *laBTCValue;
@@ -16,9 +18,12 @@
     UIButton *refreshBtn;
     UIButton *bestBtn;
     UIButton *profitBtn;
-    
+    UIButton *assumeBtn;
+
     UIActivityIndicatorView *spinner;
     Popup *popper;
+    
+    oneViewController *oneVC;
     
     PopupBackGroundBlurType blurType;
     PopupIncomingTransitionType incomingType;
