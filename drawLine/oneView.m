@@ -37,7 +37,7 @@
     [nv1063 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [nv1063 setAdjustsFontSizeToFitWidth:YES];
     [nv1063 setTextAlignment:NSTextAlignmentCenter];
-    [nv1063 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [nv1063 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
     [self addSubview:nv1063];
     
     nv1063a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
@@ -45,10 +45,11 @@
     [nv1063a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [nv1063a setAdjustsFontSizeToFitWidth:YES];
     [nv1063a setTextAlignment:NSTextAlignmentLeft];
-    [nv1063a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [nv1063a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
     [self addSubview:nv1063a];
     
     nv1063Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    nv1063Field.tag = 1;
     [self setFieldStyle:nv1063Field];
     [self addSubview:nv1063Field];
     
@@ -59,7 +60,7 @@
     [nv1070ti setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [nv1070ti setAdjustsFontSizeToFitWidth:YES];
     [nv1070ti setTextAlignment:NSTextAlignmentCenter];
-    [nv1070ti setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [nv1070ti setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
     [self addSubview:nv1070ti];
     
     nv1070tia = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
@@ -67,10 +68,11 @@
     [nv1070tia setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [nv1070tia setAdjustsFontSizeToFitWidth:YES];
     [nv1070tia setTextAlignment:NSTextAlignmentLeft];
-    [nv1070tia setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [nv1070tia setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
     [self addSubview:nv1070tia];
     
     nv1070tiField = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    nv1070tiField.tag = 2;
     [self setFieldStyle:nv1070tiField];
     [self addSubview:nv1070tiField];
     
@@ -81,7 +83,7 @@
     [nv1080 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [nv1080 setAdjustsFontSizeToFitWidth:YES];
     [nv1080 setTextAlignment:NSTextAlignmentCenter];
-    [nv1080 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [nv1080 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
     [self addSubview:nv1080];
     
     nv1080a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
@@ -89,10 +91,11 @@
     [nv1080a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [nv1080a setAdjustsFontSizeToFitWidth:YES];
     [nv1080a setTextAlignment:NSTextAlignmentLeft];
-    [nv1080a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [nv1080a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
     [self addSubview:nv1080a];
     
     nv1080Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    nv1080Field.tag = 3;
     [self setFieldStyle:nv1080Field];
     [self addSubview:nv1080Field];
     
@@ -103,7 +106,7 @@
     [amd570 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [amd570 setAdjustsFontSizeToFitWidth:YES];
     [amd570 setTextAlignment:NSTextAlignmentCenter];
-    [amd570 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [amd570 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
     [self addSubview:amd570];
     
     amd570a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
@@ -111,10 +114,11 @@
     [amd570a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [amd570a setAdjustsFontSizeToFitWidth:YES];
     [amd570a setTextAlignment:NSTextAlignmentLeft];
-    [amd570a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
+    [amd570a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
     [self addSubview:amd570a];
     
     amd570Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
+    amd570Field.tag = 4;
     [self setFieldStyle:amd570Field];
     [self addSubview:amd570Field];
     
@@ -141,9 +145,8 @@
     [assumeIcomeLab setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [assumeIcomeLab setAdjustsFontSizeToFitWidth:YES];
     [assumeIcomeLab setTextAlignment:NSTextAlignmentCenter];
-    [assumeIcomeLab setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
+    [assumeIcomeLab setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
     [self addSubview:assumeIcomeLab];
-    
     
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     spinner.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 100);
@@ -151,7 +154,7 @@
     [self addSubview:spinner];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [self addGestureRecognizer:tapGesture];
+    [self addGestureRecognizer:tapGesture];//觸碰空白區域 縮小鍵盤
     
     return self;
 }
@@ -169,7 +172,7 @@
     return [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 }
 
-- (void)readJsonfileToDictionary:(NSString *)urlString Completetion:(void (^) (NSDictionary * result, NSError * err))completion {
+- (void)readJsonfileToDictionary:(NSString *)urlString Completion:(void (^) (NSDictionary * result, NSError * err))completion {
     [spinner startAnimating];
     NSURL *JSONURL = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:JSONURL];
@@ -186,11 +189,11 @@
                                            NSDictionary *jsonDataDic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                                                        options:0
                                                                                                          error:&errDic];
-                                           
-                                           completion(jsonDataDic, errDic);
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                [spinner stopAnimating];
                                            });
+
+                                           completion(jsonDataDic, errDic);
                                        }];
     [dataTask resume];
 }
@@ -217,6 +220,7 @@
 }
 
 - (void)setFieldStyle:(UITextField *)field {
+    field.delegate = self;
     [field setKeyboardType:UIKeyboardTypeDefault];
     [field setBorderStyle:UITextBorderStyleNone];
     [field setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0f]];
@@ -252,7 +256,7 @@
 }
 
 - (void)getCoinPrice:(NSString *)url {
-    [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+    [self readJsonfileToDictionary:url Completion:^(NSDictionary *result, NSError *err) {
         if (err != nil) {
             [self showMsg:@"ErrorMessage" subTitle:err.description];
             return;
@@ -276,7 +280,8 @@
 }
 
 - (void)getCurrentCoinPrice:(NSString *)url {
-    [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+    [spinner startAnimating];
+    [self readJsonfileToDictionary:url Completion:^(NSDictionary *result, NSError *err) {
         if (err != nil) {
             [self showMsg:@"ErrorMessage" subTitle:err.description];
             [spinner stopAnimating];
@@ -293,17 +298,17 @@
         if (_gpuProf == nil) {
             _gpuProf = [[NSMutableArray alloc] init];
         }
-        
         [_gpuProf removeAllObjects];
+        
         for (GpuType *gCard in self.gpuGroups) {
             NSMutableArray *arrData = [[NSMutableArray alloc] init];
             NSString *name = gCard.gpuName;
-            float costEfee = gCard.costWatt * 24 * 0.1 * 0.001;//default ele fee w * 24h *0.1usd *0.001
-            float euq = gCard.equihash * equihashValue * _currentBTCPrice - costEfee;
-            float neo = gCard.neoscrypt * neoscryptValue * _currentBTCPrice - costEfee;
-            float nist5 = gCard.nist5 * nist5Value * _currentBTCPrice - costEfee;
-            float lyra2rev2 = gCard.lyra2rev2 * lyra2rev2Value * _currentBTCPrice - costEfee;
-            float dag = gCard.daggerhashimoto * daggerhashimotoValue * _currentBTCPrice - costEfee;
+            float electricCostFee = gCard.costWatt * 24 * 0.085 * 0.001;//default ele fee w * 24h *0.085usd *0.001
+            float euq = gCard.equihash * equihashValue * _currentBTCPrice - electricCostFee;
+            float neo = gCard.neoscrypt * neoscryptValue * _currentBTCPrice - electricCostFee;
+            float nist5 = gCard.nist5 * nist5Value * _currentBTCPrice - electricCostFee;
+            float lyra2rev2 = gCard.lyra2rev2 * lyra2rev2Value * _currentBTCPrice - electricCostFee;
+            float dag = gCard.daggerhashimoto * daggerhashimotoValue * _currentBTCPrice - electricCostFee;
             
             [arrData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%1.3f", euq], @"profValue",
                                 @"equihash", @"algorithm", nil]];
@@ -325,6 +330,8 @@
             nv1070tia.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1070TI"]];
             nv1080a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1080"]];
             amd570a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"RX570"]];
+            
+            [spinner stopAnimating];
         });
     }];
 }
@@ -395,6 +402,10 @@
         }
     }
     return stirng;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self calcularBtnClick];
 }
 
 @end

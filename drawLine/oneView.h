@@ -12,6 +12,7 @@
 @class oneViewController;
 @class ViewController;
 
+
 @interface oneView : UIView <UITextFieldDelegate, PopupDelegate>{
     UILabel *nv1063;
     UILabel *nv1070ti;

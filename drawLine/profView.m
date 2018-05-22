@@ -116,7 +116,7 @@
 }
 
 - (void)getCoinPrice:(NSString *)url {
-    [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+    [self readJsonfileToDictionary:url Completion:^(NSDictionary *result, NSError *err) {
         if (err != nil) {
             [self showMsg:@"ErrorMessage" subTitle:err.description];
             return;
@@ -143,7 +143,7 @@
 
 - (void)getCurrentCoinPrice:(NSString *)url {
     [spinner startAnimating];
-    [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+    [self readJsonfileToDictionary:url Completion:^(NSDictionary *result, NSError *err) {
         if (err != nil) {
             [self showMsg:@"ErrorMessage" subTitle:err.description];
             return;
@@ -163,7 +163,7 @@
         for (GpuType *gCard in self.gpuGroups) {
             NSMutableArray *arrData = [[NSMutableArray alloc] init];
             NSString *name = gCard.gpuName;
-            float costEfee = gCard.costWatt * 24 * 0.1 * 0.001;//default ele fee w * 24h *0.1usd *0.001
+            float costEfee = gCard.costWatt * 24 * 0.085 * 0.001;//default ele fee w * 24h *0.085usd *0.001
             float euq = gCard.equihash * equihashValue * _currentBTCPrice - costEfee;
             float neo = gCard.neoscrypt * neoscryptValue * _currentBTCPrice - costEfee;
             float nist5 = gCard.nist5 * nist5Value * _currentBTCPrice - costEfee;
@@ -194,7 +194,8 @@
     return [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 }
 
-- (void)readJsonfileToDictionary:(NSString *)urlString Completetion:(void (^) (NSDictionary * result, NSError * err))completion {
+- (void)readJsonfileToDictionary:(NSString *)urlString Completion:(void (^) (NSDictionary * result, NSError * err))completion {
+    [spinner startAnimating];
     NSURL *JSONURL = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:JSONURL];
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession]
@@ -210,6 +211,10 @@
                                            NSDictionary *jsonDataDic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                                                        options:0
                                                                                                          error:&errDic];
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               [spinner stopAnimating];
+                                           });
+                                           
                                            completion(jsonDataDic, errDic);
                                        }];
     [dataTask resume];

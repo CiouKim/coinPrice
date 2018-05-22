@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "drawLine/profView.m"
-            timestampString = "548645478.491135"
+            timestampString = "548671579.806898"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "-getBestAlgorithmForGPU"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "drawLine/oneView.m"
-            timestampString = "548645478.4912111"
+            timestampString = "548671579.806965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "346"
-            endingLineNumber = "346"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
             landmarkName = "-calcularBtnClick"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,45 +250,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "drawLine/oneView.m"
-            timestampString = "548645478.4914989"
+            timestampString = "548671579.8073159"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
             landmarkName = "-calcularBtnClick"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[oneView calcularBtnClick]"
-                  moduleName = "drawLine"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Chinalife/Desktop/drawLine/drawLine/oneView.m"
-                  timestampString = "548645341.044013"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "351"
-                  endingLineNumber = "351"
-                  offsetFromSymbolStart = "970">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[oneView calcularBtnClick]"
-                  moduleName = "drawLine"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Chinalife/Desktop/drawLine/drawLine/oneView.m"
-                  timestampString = "548645341.046857"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "351"
-                  endingLineNumber = "351"
-                  offsetFromSymbolStart = "978">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -298,12 +266,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "drawLine/oneView.m"
-            timestampString = "548645478.491695"
+            timestampString = "548671579.807547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "-readJsonfileToDictionary:Completetion:"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "-getCoinPrice:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "drawLine/oneView.m"
+            timestampString = "548671579.80776"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "-getCurrentCoinPrice:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
