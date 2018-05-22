@@ -18,20 +18,18 @@
     UILabel *nv1080;
     UILabel *amd570;
     
-    
-    
     UILabel *nv1063a;
     UILabel *nv1070tia;
     UILabel *nv1080a;
     UILabel *amd570a;
 
-    
     UITextField *nv1063Field;
     UITextField *nv1070tiField;
     UITextField *nv1080Field;
     UITextField *amd570Field;
     
     UIButton *calcularBtn;
+    UIButton *reloadDataBtn;
     
     UILabel *assumeIcomeLab;
     
@@ -42,7 +40,6 @@
     PopupBackGroundBlurType blurType;
     PopupIncomingTransitionType incomingType;
     PopupOutgoingTransitionType outgoingType;
-
 }
 
 @property (nonatomic, readonly) NSMutableArray *gpuGroups;

@@ -54,7 +54,6 @@
 		7C80611F205F95CC00849B6E /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		7C8F79C020243BB50067C5CF /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
 		7C8F79C120243BB50067C5CF /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
-		7CD32AF320031CDB00E7293C /* drawLine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = drawLine.entitlements; sourceTree = "<group>"; };
 		7CD32AFC2003229600E7293C /* iCloudHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCloudHelper.h; sourceTree = "<group>"; };
 		7CD32AFD2003229600E7293C /* iCloudHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloudHelper.m; sourceTree = "<group>"; };
 		7CD32B002003364B00E7293C /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
@@ -91,7 +90,6 @@
 		7C7B195C1FFB3179004A5D21 /* drawLine */ = {
 			isa = PBXGroup;
 			children = (
-				7CD32AF320031CDB00E7293C /* drawLine.entitlements */,
 				7C8F79BF20243B980067C5CF /* HtmlStringConvrt */,
 				7CD32AFF2003364000E7293C /* img */,
 				7CD32AEF20031C8500E7293C /* iCloudHelper */,
@@ -180,10 +178,10 @@
 				TargetAttributes = {
 					7C7B19591FFB3179004A5D21 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -354,17 +352,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = drawLine/drawLine.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer: HuiJen Kao (HGND6HTDC4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3Z28793AXS;
 				INFOPLIST_FILE = drawLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chinalife.iCloudDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d1ef5563-0cc8-4da2-aacf-1b5197c844f0";
+				PROVISIONING_PROFILE_SPECIFIER = iCloudDemodibution190521;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -373,17 +371,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = drawLine/drawLine.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer: HuiJen Kao (HGND6HTDC4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3Z28793AXS;
 				INFOPLIST_FILE = drawLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chinalife.iCloudDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d1ef5563-0cc8-4da2-aacf-1b5197c844f0";
+				PROVISIONING_PROFILE_SPECIFIER = iCloudDemodibution190521;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -28,10 +28,7 @@
     int labelWidth = 150;
     int labelHeight = 30;
     int edgeField = 285;
-    
-    
     int aField = 130;
-    
     int labeloriginalY = 40;
     int fieldWidth = 50;
     
@@ -50,7 +47,7 @@
     [nv1063a setTextAlignment:NSTextAlignmentLeft];
     [nv1063a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
     [self addSubview:nv1063a];
-
+    
     nv1063Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
     [self setFieldStyle:nv1063Field];
     [self addSubview:nv1063Field];
@@ -72,7 +69,7 @@
     [nv1070tia setTextAlignment:NSTextAlignmentLeft];
     [nv1070tia setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
     [self addSubview:nv1070tia];
-
+    
     nv1070tiField = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
     [self setFieldStyle:nv1070tiField];
     [self addSubview:nv1070tiField];
@@ -94,11 +91,11 @@
     [nv1080a setTextAlignment:NSTextAlignmentLeft];
     [nv1080a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
     [self addSubview:nv1080a];
-
+    
     nv1080Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
     [self setFieldStyle:nv1080Field];
     [self addSubview:nv1080Field];
-
+    
     labeloriginalY += gap;
     
     amd570 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
@@ -116,10 +113,19 @@
     [amd570a setTextAlignment:NSTextAlignmentLeft];
     [amd570a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0] /*#546595*/];
     [self addSubview:amd570a];
-
+    
     amd570Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
     [self setFieldStyle:amd570Field];
     [self addSubview:amd570Field];
+    
+    reloadDataBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    reloadDataBtn.layer.opacity = .70;
+    reloadDataBtn.layer.cornerRadius = 25.0;
+    reloadDataBtn.backgroundColor = [UIColor colorWithRed:0.57 green:0.62 blue:0.90 alpha:1.0];
+    [reloadDataBtn addTarget:self action:@selector(getData) forControlEvents:UIControlEventTouchUpInside];
+    [reloadDataBtn setTitle:@"ReGetData" forState:UIControlStateNormal];
+    reloadDataBtn.frame = CGRectMake(self.frame.size.width/2 - 75, self.frame.size.height -  330, 150, 50);
+    [self addSubview:reloadDataBtn];
     
     calcularBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     calcularBtn.layer.opacity = .70;
@@ -129,7 +135,7 @@
     [calcularBtn setTitle:@"Calcular" forState:UIControlStateNormal];
     calcularBtn.frame = CGRectMake(self.frame.size.width/2 - 75, self.frame.size.height -  250, 150, 50);
     [self addSubview:calcularBtn];
-
+    
     assumeIcomeLab = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - 75, self.frame.size.height -  150, 150, 50)];
     assumeIcomeLab.text = @"Total:0 USDT";
     [assumeIcomeLab setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
@@ -137,6 +143,12 @@
     [assumeIcomeLab setTextAlignment:NSTextAlignmentCenter];
     [assumeIcomeLab setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1] /*#546595*/];
     [self addSubview:assumeIcomeLab];
+    
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 100);
+    spinner.hidesWhenStopped = YES;
+    [self addSubview:spinner];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:tapGesture];
@@ -148,7 +160,6 @@
     [self endEditing:YES];
 }
 
-
 - (void)layoutSubviews {
     [super layoutSubviews];
 }
@@ -159,6 +170,7 @@
 }
 
 - (void)readJsonfileToDictionary:(NSString *)urlString Completetion:(void (^) (NSDictionary * result, NSError * err))completion {
+    [spinner startAnimating];
     NSURL *JSONURL = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:JSONURL];
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession]
@@ -174,7 +186,11 @@
                                            NSDictionary *jsonDataDic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                                                        options:0
                                                                                                          error:&errDic];
+                                           
                                            completion(jsonDataDic, errDic);
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               [spinner stopAnimating];
+                                           });
                                        }];
     [dataTask resume];
 }
@@ -184,7 +200,9 @@
         _gpuGroups = [[NSMutableArray alloc] init];
     }
     
+    [_gpuGroups removeAllObjects];
     NSArray *arr = [[[self jsonFromFile:url] valueForKey:@"GPUData"] allObjects];
+    
     for (NSDictionary *gpuDic in arr) {
         GpuType *gpu = [[GpuType alloc] init];
         gpu.gpuName = [NSString stringWithFormat:@"%@", [gpuDic valueForKey:@"GPU"]];
@@ -214,13 +232,11 @@
     [field setTextAlignment:NSTextAlignmentCenter];
     [field setPlaceholder:@"片"];
     [field setDelegate:self];
-
     [field.layer setMasksToBounds:YES];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(string.length > 0)
-    {
+    if(string.length > 0) {
         NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
         NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:string];
         
@@ -236,11 +252,12 @@
 }
 
 - (void)getCoinPrice:(NSString *)url {
-        [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
+    [self readJsonfileToDictionary:url Completetion:^(NSDictionary *result, NSError *err) {
         if (err != nil) {
             [self showMsg:@"ErrorMessage" subTitle:err.description];
             return;
         }
+        
         for (NSDictionary *dic in result) {
             if ([[dic valueForKey:@"id"] isEqualToString:@"bitcoin"]) {//btc
                 self.currentBTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
@@ -265,6 +282,7 @@
             [spinner stopAnimating];
             return;
         }
+        
         NSArray *arr = [[result valueForKey:@"result"] valueForKey:@"simplemultialgo"];
         float equihashValue = [[arr[24] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
         float neoscryptValue = [[arr[8] valueForKey:@"paying"] floatValue] / 1000 / 1000 / 1000;
@@ -299,16 +317,15 @@
                                 @"daggerhashimoto", @"algorithm", nil]];
             
             NSString *fAlgorithmValue = [NSString stringWithFormat:@"%.3f", [self getBestAlgorithmValue:arrData]];
-            
             [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data", name, @"Key", fAlgorithmValue , @"bestAlgorithmValue",nil]];
         }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             nv1063a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1063"]];
             nv1070tia.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1070TI"]];
             nv1080a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"1080"]];
             amd570a.text = [NSString stringWithFormat:@"%@", [self getBestAlgorithm:@"RX570"]];
         });
-
     }];
 }
 
@@ -323,7 +340,6 @@
 }
 
 - (void)calcularBtnClick {
-    [self getData];
     int nv1063num = nv1063Field.text == nil ? 0 : [nv1063Field.text intValue];
     int nv1070tinum = nv1070tiField.text == nil ? 0 : [nv1070tiField.text intValue];
     int nv1080num = nv1080Field.text == nil ? 0 : [nv1080Field.text intValue];
@@ -333,15 +349,15 @@
         if ([[dic valueForKey:@"Key"] isEqualToString:@"RX570"]) {
             total += amd570num* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
         }
-
+        
         if ([[dic valueForKey:@"Key"] isEqualToString:@"1063"]) {
             total += nv1063num* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
         }
-
+        
         if ([[dic valueForKey:@"Key"] isEqualToString:@"1070TI"]) {
             total += nv1070tinum* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
         }
-
+        
         if ([[dic valueForKey:@"Key"] isEqualToString:@"1080"]) {
             total += nv1080num* [[dic valueForKey:@"bestAlgorithmValue"] floatValue];
         }
@@ -367,7 +383,7 @@
 
 - (NSString *)getBestAlgorithm:(NSString *)str {
     float maxValue = 0;
-    NSString *stirng = @"414141";
+    NSString *stirng = @"";
     for (NSDictionary *dic in _gpuProf) {
         if ([[dic valueForKey:@"Key"] isEqualToString:str]) {
             for (NSDictionary *d in [[dic valueForKey:@"Data"] allObjects]) {
@@ -377,7 +393,6 @@
                 }
             }
         }
-        
     }
     return stirng;
 }
