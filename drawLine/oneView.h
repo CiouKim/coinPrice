@@ -47,9 +47,6 @@
 @property (nonatomic, readonly) NSMutableArray *gpuProf;
 
 @property float currentBTCPrice;
-@property float currentETHPrice;
-@property float currentLTCPrice;
-@property float currentSCPrice;
 
 - (void) getData;
 

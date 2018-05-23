@@ -18,6 +18,7 @@
     UIButton *refreshBtn;
     UIButton *bestBtn;
     UIButton *profitBtn;
+    UIButton *priceBtn;
     UIButton *assumeBtn;
 
     UIActivityIndicatorView *spinner;

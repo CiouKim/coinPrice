@@ -22,7 +22,6 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     self.backgroundColor = [UIColor clearColor];
-    
     int edge = 5;
     int gap = 55;
     int labelWidth = 150;
@@ -33,92 +32,62 @@
     int fieldWidth = 50;
     
     nv1063 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
-    nv1063.text = @"Nvidia-1063";
-    [nv1063 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [nv1063 setAdjustsFontSizeToFitWidth:YES];
-    [nv1063 setTextAlignment:NSTextAlignmentCenter];
-    [nv1063 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
+    [self setGPUCardNameStyle:nv1063 CardName:@"Nvidia-1063"];
     [self addSubview:nv1063];
     
     nv1063a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
-    nv1063a.text = @"";
-    [nv1063a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [nv1063a setAdjustsFontSizeToFitWidth:YES];
-    [nv1063a setTextAlignment:NSTextAlignmentLeft];
-    [nv1063a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
+    [self setGPUCardBestAlgorithmStyle:nv1063a];
     [self addSubview:nv1063a];
     
     nv1063Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
-    nv1063Field.tag = 1;
+    nv1063Field.tag = 1063;
     [self setFieldStyle:nv1063Field];
     [self addSubview:nv1063Field];
     
     labeloriginalY += gap;
     
     nv1070ti = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
+    [self setGPUCardNameStyle:nv1070ti CardName:@"Nvidia-1070ti"];
     nv1070ti.text = @"Nvidia-1070ti";
-    [nv1070ti setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [nv1070ti setAdjustsFontSizeToFitWidth:YES];
-    [nv1070ti setTextAlignment:NSTextAlignmentCenter];
-    [nv1070ti setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
     [self addSubview:nv1070ti];
     
     nv1070tia = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
-    nv1070tia.text = @"";
-    [nv1070tia setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [nv1070tia setAdjustsFontSizeToFitWidth:YES];
-    [nv1070tia setTextAlignment:NSTextAlignmentLeft];
-    [nv1070tia setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
+    [self setGPUCardBestAlgorithmStyle:nv1070tia];
     [self addSubview:nv1070tia];
     
     nv1070tiField = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
-    nv1070tiField.tag = 2;
+    nv1070tiField.tag = 1071;
     [self setFieldStyle:nv1070tiField];
     [self addSubview:nv1070tiField];
     
     labeloriginalY += gap;
     
     nv1080 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
-    nv1080.text = @"Nvidia-1080";
-    [nv1080 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [nv1080 setAdjustsFontSizeToFitWidth:YES];
-    [nv1080 setTextAlignment:NSTextAlignmentCenter];
-    [nv1080 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
+    [self setGPUCardNameStyle:nv1080 CardName:@"Nvidia-1080"];
     [self addSubview:nv1080];
     
     nv1080a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
-    nv1080a.text = @"";
-    [nv1080a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [nv1080a setAdjustsFontSizeToFitWidth:YES];
-    [nv1080a setTextAlignment:NSTextAlignmentLeft];
-    [nv1080a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
+    [self setGPUCardBestAlgorithmStyle:nv1080a];
     [self addSubview:nv1080a];
     
     nv1080Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
-    nv1080Field.tag = 3;
+    nv1080Field.tag = 1080;
     [self setFieldStyle:nv1080Field];
     [self addSubview:nv1080Field];
     
     labeloriginalY += gap;
     
     amd570 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
-    amd570.text = @"AMD-570";
-    [amd570 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [amd570 setAdjustsFontSizeToFitWidth:YES];
-    [amd570 setTextAlignment:NSTextAlignmentCenter];
-    [amd570 setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
+    [self setGPUCardNameStyle:amd570 CardName:@"AMD-570"];
     [self addSubview:amd570];
     
     amd570a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
+    [self setGPUCardBestAlgorithmStyle:amd570a];
     amd570a.text = @"";
-    [amd570a setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [amd570a setAdjustsFontSizeToFitWidth:YES];
-    [amd570a setTextAlignment:NSTextAlignmentLeft];
-    [amd570a setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
     [self addSubview:amd570a];
     
     amd570Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
-    amd570Field.tag = 4;
+    amd570Field.tag = 570;
     [self setFieldStyle:amd570Field];
     [self addSubview:amd570Field];
     
@@ -192,7 +161,7 @@
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                [spinner stopAnimating];
                                            });
-
+                                           
                                            completion(jsonDataDic, errDic);
                                        }];
     [dataTask resume];
@@ -217,6 +186,22 @@
         gpu.costWatt = [[gpuDic valueForKey:@"CostWatt"] intValue];
         [_gpuGroups addObject:gpu];
     }
+}
+
+- (void)setGPUCardBestAlgorithmStyle:(UILabel *)label {
+    label.text = @"";
+    [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [label setAdjustsFontSizeToFitWidth:YES];
+    [label setTextAlignment:NSTextAlignmentLeft];
+    [label setTextColor:[UIColor colorWithRed:0.64 green:0.90 blue:0.57 alpha:1.0]];
+}
+
+- (void)setGPUCardNameStyle:(UILabel *)label CardName:(NSString *)cardName {
+    label.text = cardName;
+    [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [label setAdjustsFontSizeToFitWidth:YES];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
 }
 
 - (void)setFieldStyle:(UITextField *)field {
@@ -265,15 +250,6 @@
         for (NSDictionary *dic in result) {
             if ([[dic valueForKey:@"id"] isEqualToString:@"bitcoin"]) {//btc
                 self.currentBTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
-            }
-            if ([[dic valueForKey:@"id"] isEqualToString:@"ethereum"]) {//eth
-                self.currentETHPrice = [[dic valueForKey:@"price_usd"] floatValue];
-            }
-            if ([[dic valueForKey:@"id"] isEqualToString:@"litecoin"]) {//ltc
-                self.currentLTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
-            }
-            if ([[dic valueForKey:@"id"] isEqualToString:@"siacoin"]) {//sc
-                self.currentSCPrice = [[dic valueForKey:@"price_usd"] floatValue];
             }
         }
     }];

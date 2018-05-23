@@ -42,7 +42,7 @@
     refreshBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:107/255.0 blue:171/255.0 alpha:1.0];
     [refreshBtn addTarget:self action:@selector(refeeshClick) forControlEvents:UIControlEventTouchUpInside];
     [refreshBtn setTitle:@"R" forState:UIControlStateNormal];
-    refreshBtn.frame = CGRectMake(20, 420, 50, 50);
+    refreshBtn.frame = CGRectMake(7, 420, 50, 50);
     [self addSubview:refreshBtn];
     
     bestBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -51,7 +51,7 @@
     bestBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:6.0/255.0 blue:40.0/255.0 alpha:1.0];
     [bestBtn addTarget:self action:@selector(getBestAlgorithmForGPU) forControlEvents:UIControlEventTouchUpInside];
     [bestBtn setTitle:@"B" forState:UIControlStateNormal];
-    bestBtn.frame = CGRectMake(100, 420, 50, 50);
+    bestBtn.frame = CGRectMake(77, 420, 50, 50);
     [self addSubview:bestBtn];
     
     profitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -60,16 +60,25 @@
     profitBtn.backgroundColor = [UIColor colorWithRed:64.0/255.0 green:255.0/255.0 blue:0.0/255.0 alpha:1.0];
     [profitBtn addTarget:self action:@selector(getProfit) forControlEvents:UIControlEventTouchUpInside];
     [profitBtn setTitle:@"P" forState:UIControlStateNormal];
-    profitBtn.frame = CGRectMake(180, 420, 50, 50);
+    profitBtn.frame = CGRectMake(157, 420, 50, 50);
     [self addSubview:profitBtn];
     
+    priceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    priceBtn.layer.opacity = .70;
+    priceBtn.layer.cornerRadius = 25.0;
+    priceBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:217.0/255.0 alpha:1.0];
+    [priceBtn addTarget:self action:@selector(priceBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [priceBtn setTitle:@"L" forState:UIControlStateNormal];
+    priceBtn.frame = CGRectMake(237, 420, 50, 50);
+    [self addSubview:priceBtn];
+
     assumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     assumeBtn.layer.opacity = .70;
     assumeBtn.layer.cornerRadius = 25.0;
-    assumeBtn.backgroundColor = [UIColor colorWithRed:133.0/255.0 green:255.0/255.0 blue:0.0/255.0 alpha:1.0];
+    assumeBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:184.0/255.0 blue:77.0/255.0 alpha:1.0];
     [assumeBtn addTarget:self action:@selector(assumeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [assumeBtn setTitle:@"A" forState:UIControlStateNormal];
-    assumeBtn.frame = CGRectMake(260, 420, 50, 50);
+    assumeBtn.frame = CGRectMake(317, 420, 50, 50);
     [self addSubview:assumeBtn];
     
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -299,7 +308,7 @@
           NSString *msg = [NSString stringWithFormat:@"BTC:%1.5f\n ETH:%1.3f\n LTC:%1.3f\n SC:%1.3f\n Profit:%1.3f$", btc, eth, ltc, sc, btc*_currentBTCPrice + eth*_currentETHPrice + ltc*_currentLTCPrice + sc *_currentSCPrice];
           dispatch_async(dispatch_get_main_queue(), ^{
               [spinner stopAnimating];
-              [self showMsg:@"Profit" subTitle:msg];
+              [self showMsg:@"Ｐroperty" subTitle:msg];
           });
       }] resume];
 }
@@ -309,6 +318,15 @@
         oneVC = [[oneViewController alloc] init];
     }
     [self.controller.navigationController pushViewController:oneVC animated:NO];
+}
+
+- (void)priceBtnClick {
+    NSMutableString *msg = [[NSMutableString alloc] init];
+    [msg appendFormat: @"BTC:%.4f\n", self.currentBTCPrice];
+    [msg appendFormat: @"ETH:%.4f\n", self.currentETHPrice];
+    [msg appendFormat: @"LTC:%.4f\n", self.currentLTCPrice];
+    [msg appendFormat: @"SC:%.4f\n", self.currentSCPrice];
+    [self showMsg:@"Coin Price" subTitle:msg];
 }
 
 - (NSString *)findMaxValue:(NSArray *)dataArray {
