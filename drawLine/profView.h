@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "Popup.h"
 #import "oneViewController.h"
+#import "ShowMessageController.h"
 
 
 @interface profView : UIView <UITableViewDelegate, UITableViewDataSource, PopupDelegate> {
@@ -25,6 +26,7 @@
     Popup *popper;
     
     oneViewController *oneVC;
+    ShowMessageController *showVC;
     
     PopupBackGroundBlurType blurType;
     PopupIncomingTransitionType incomingType;

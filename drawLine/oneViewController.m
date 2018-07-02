@@ -17,15 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     if (oView == nil) {
         oView = [[oneView alloc] initWithFrame:self.view.bounds];
     }
     
+    self.view = oView;
     [oView getData];
-    
-    [self.view addSubview:oView];
-    self.navigationItem.title = @"Assume Income";
 }
 
 

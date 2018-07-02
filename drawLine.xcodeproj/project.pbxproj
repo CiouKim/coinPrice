@@ -22,6 +22,8 @@
 		7C7EAF7020315D9E0094805C /* apple13.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C7EAF6F20315D9E0094805C /* apple13.png */; };
 		7C806120205F95CD00849B6E /* Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C80611E205F95CC00849B6E /* Popup.m */; };
 		7C8F79C220243BB50067C5CF /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8F79C120243BB50067C5CF /* RTLabel.m */; };
+		7C96194F20BBDF6C0036A39D /* ShowMessageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C96194D20BBDF6C0036A39D /* ShowMessageController.xib */; };
+		7C96195320BBE2A90036A39D /* ShowMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C96195120BBE2670036A39D /* ShowMessageController.m */; };
 		7CD32AFE2003229600E7293C /* iCloudHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD32AFD2003229600E7293C /* iCloudHelper.m */; };
 		7CD32B012003364B00E7293C /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD32B002003364B00E7293C /* apple.png */; };
 		7CD32B0320033D5600E7293C /* apple12.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD32B0220033D5600E7293C /* apple12.png */; };
@@ -54,6 +56,9 @@
 		7C80611F205F95CC00849B6E /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		7C8F79C020243BB50067C5CF /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
 		7C8F79C120243BB50067C5CF /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
+		7C96194D20BBDF6C0036A39D /* ShowMessageController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowMessageController.xib; sourceTree = "<group>"; };
+		7C96195020BBE2670036A39D /* ShowMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMessageController.h; sourceTree = "<group>"; };
+		7C96195120BBE2670036A39D /* ShowMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMessageController.m; sourceTree = "<group>"; };
 		7CD32AFC2003229600E7293C /* iCloudHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCloudHelper.h; sourceTree = "<group>"; };
 		7CD32AFD2003229600E7293C /* iCloudHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloudHelper.m; sourceTree = "<group>"; };
 		7CD32B002003364B00E7293C /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
@@ -111,6 +116,9 @@
 				7C62AAE71FFE1AA900CE9B02 /* oneView.m */,
 				7C60F6B8205A48A7009FB4E8 /* profView.h */,
 				7C60F6B9205A48A7009FB4E8 /* profView.m */,
+				7C96195020BBE2670036A39D /* ShowMessageController.h */,
+				7C96195120BBE2670036A39D /* ShowMessageController.m */,
+				7C96194D20BBDF6C0036A39D /* ShowMessageController.xib */,
 				7C689168202D764100488FF5 /* CkmainCRM_Cust.db */,
 				7C3883C62005D90300968D9F /* jsonDataNew.json */,
 				7C61319820634F5800068B57 /* GpuGroup.json */,
@@ -214,6 +222,7 @@
 				7C7EAF7020315D9E0094805C /* apple13.png in Resources */,
 				7C689169202D764100488FF5 /* CkmainCRM_Cust.db in Resources */,
 				7C3883C72005D90300968D9F /* jsonDataNew.json in Resources */,
+				7C96194F20BBDF6C0036A39D /* ShowMessageController.xib in Resources */,
 				7C61319920634F5800068B57 /* GpuGroup.json in Resources */,
 				7CD32B012003364B00E7293C /* apple.png in Resources */,
 				7C7B19671FFB3179004A5D21 /* Assets.xcassets in Resources */,
@@ -235,6 +244,7 @@
 				7C62AAE81FFE1AA900CE9B02 /* oneView.m in Sources */,
 				7C7B19621FFB3179004A5D21 /* ViewController.m in Sources */,
 				7C62AAE51FFE1A7800CE9B02 /* oneViewController.m in Sources */,
+				7C96195320BBE2A90036A39D /* ShowMessageController.m in Sources */,
 				7C7B196D1FFB3179004A5D21 /* main.m in Sources */,
 				7C60F6CC205A5C6C009FB4E8 /* GpuType.m in Sources */,
 				7C7B195F1FFB3179004A5D21 /* AppDelegate.m in Sources */,

@@ -24,6 +24,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+//-(void)setMessage:(NSString *)message {
+//    self.messageTitle.text = message;
+//}
+
 /*
 #pragma mark - Navigation
 
@@ -34,4 +38,7 @@
 }
 */
 
+- (IBAction)btnClick:(id)sender {
+    NSLog(@"%@", self.messageTitle.text);
+}
 @end

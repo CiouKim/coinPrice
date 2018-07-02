@@ -4,27 +4,27 @@
                "GPU": "1080",
                "daggerhashimoto": "23.5",
                "equihash":"580",
-               "lyra2rev2":"46.5",
+               "lyra2rev2":"51",
                "neoscrypt":"1060",
                "nist5":"58",
                "CostWatt":"150"
                },
                {
                "GPU": "1070TI",
-               "daggerhashimoto": "31.5",
+               "daggerhashimoto": "32",
                "equihash":"530",
-               "lyra2rev2":"41.5",
+               "lyra2rev2":"46",
                "neoscrypt":"1050",
                "nist5":"50",
-               "CostWatt":"130"
+               "CostWatt":"150"
                },
                {
                "GPU": "1063",
-               "daggerhashimoto": "25",
-               "equihash":"280",
-               "lyra2rev2":"23",
+               "daggerhashimoto": "24",
+               "equihash":"320",
+               "lyra2rev2":"24",
                "neoscrypt":"62",
-               "nist5":"29",
+               "nist5":"26",
                "CostWatt":"90"
                },
                {

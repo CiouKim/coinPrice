@@ -9,6 +9,7 @@
 #import "profView.h"
 #import "oneViewController.h"
 #import "GpuType.h"
+#import "ShowMessageController.h"
 
 #define coinPriceUrl @"https://api.nicehash.com/api?method=simplemultialgo.info"
 #define balanceUrl @"https://auto-mover.firebaseio.com/balance.json"
@@ -25,7 +26,6 @@
     laBTCValue.textColor = [UIColor blackColor];
     laBTCValue.textAlignment = NSTextAlignmentCenter;
     laBTCValue.font = [UIFont systemFontOfSize:13];
-    
     [self addSubview:laBTCValue];
     
     tTableView = [[UITableView alloc]init];
@@ -86,10 +86,8 @@
     spinner.hidesWhenStopped = YES;
     [self addSubview:spinner];
     
-    
     [self getInitGPUData:[[NSBundle mainBundle] pathForResource:@"GpuGroup" ofType:@"json"]];
-
-    [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];//reflash data
     
     [self refeeshClick];
     
@@ -110,6 +108,7 @@
         _gpuGroups = [[NSMutableArray alloc] init];
     }
     
+    [_gpuProf removeAllObjects];
     NSArray *arr = [[[self jsonFromFile:url] valueForKey:@"GPUData"] allObjects];
     for (NSDictionary *gpuDic in arr) {
         GpuType *gpu = [[GpuType alloc] init];
@@ -130,6 +129,7 @@
             [self showMsg:@"ErrorMessage" subTitle:err.description];
             return;
         }
+        
         for (NSDictionary *dic in result) {
             if ([[dic valueForKey:@"id"] isEqualToString:@"bitcoin"]) {//btc
                 self.currentBTCPrice = [[dic valueForKey:@"price_usd"] floatValue];
@@ -144,6 +144,7 @@
                 self.currentSCPrice = [[dic valueForKey:@"price_usd"] floatValue];
             }
         }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             laBTCValue.text = [NSString stringWithFormat:@"BTC:%1.3f$ ETH:%1.3f$ LTC:%1.3f$", self.currentBTCPrice, self.currentETHPrice, self.currentLTCPrice];
         });
@@ -191,6 +192,7 @@
                                 @"daggerhashimoto", @"algorithm", nil]];
             [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data", name, @"Key", nil]];
         }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [spinner stopAnimating];
             [tTableView reloadData];
@@ -220,11 +222,10 @@
                                            NSDictionary *jsonDataDic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                                                        options:0
                                                                                                          error:&errDic];
+                                           completion(jsonDataDic, errDic);
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                [spinner stopAnimating];
                                            });
-                                           
-                                           completion(jsonDataDic, errDic);
                                        }];
     [dataTask resume];
 }
@@ -247,7 +248,7 @@
     return 30;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 70;
 }
 
@@ -279,11 +280,11 @@
 }
 
 - (void)getProfit {
-    [spinner startAnimating];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:balanceUrl]];
     
+    [spinner startAnimating];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
       ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
           float btc = 0.0;
@@ -305,10 +306,10 @@
                   sc = sc + [[dic valueForKey:@"SC"] floatValue];
               }
           }
-          NSString *msg = [NSString stringWithFormat:@"BTC:%1.5f\n ETH:%1.3f\n LTC:%1.3f\n SC:%1.3f\n Profit:%1.3f$", btc, eth, ltc, sc, btc*_currentBTCPrice + eth*_currentETHPrice + ltc*_currentLTCPrice + sc *_currentSCPrice];
+          NSString *msg = [NSString stringWithFormat:@"BTC:%1.5f\n ETH:%1.3f\n LTC:%1.3f\n SC:%1.3f\n Profit:%1.3f$", btc, eth, ltc, sc, btc *_currentBTCPrice + eth *_currentETHPrice + ltc *_currentLTCPrice + sc *_currentSCPrice];
           dispatch_async(dispatch_get_main_queue(), ^{
               [spinner stopAnimating];
-              [self showMsg:@"Ｐroperty" subTitle:msg];
+              [self showMsg:@"Property" subTitle:msg];
           });
       }] resume];
 }
@@ -317,6 +318,7 @@
     if (oneVC == nil) {
         oneVC = [[oneViewController alloc] init];
     }
+    oneVC.navigationItem.title = @"Assume Income";
     [self.controller.navigationController pushViewController:oneVC animated:NO];
 }
 
@@ -327,6 +329,11 @@
     [msg appendFormat: @"LTC:%.4f\n", self.currentLTCPrice];
     [msg appendFormat: @"SC:%.4f\n", self.currentSCPrice];
     [self showMsg:@"Coin Price" subTitle:msg];
+//    if (showVC == nil) {
+//        NSString *xibName = @"ShowMessageController";
+//        showVC = [[ShowMessageController alloc] initWithNibName:xibName bundle:nil];
+//    }
+//    [self.controller.navigationController pushViewController:showVC animated:nil];
 }
 
 - (NSString *)findMaxValue:(NSArray *)dataArray {

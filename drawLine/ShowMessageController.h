@@ -10,4 +10,7 @@
 
 @interface ShowMessageController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *messageTitle;
+- (IBAction)btnClick:(id)sender;
+
 @end

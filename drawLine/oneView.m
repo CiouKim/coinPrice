@@ -62,6 +62,7 @@
     
     labeloriginalY += gap;
     
+    
     nv1080 = [[UILabel alloc] initWithFrame:CGRectMake(edge, labeloriginalY, labelWidth, labelHeight)];
     [self setGPUCardNameStyle:nv1080 CardName:@"Nvidia-1080"];
     [self addSubview:nv1080];
@@ -83,7 +84,6 @@
     
     amd570a = [[UILabel alloc] initWithFrame:CGRectMake(aField, labeloriginalY, labelWidth, labelHeight)];
     [self setGPUCardBestAlgorithmStyle:amd570a];
-    amd570a.text = @"";
     [self addSubview:amd570a];
     
     amd570Field = [[UITextField alloc] initWithFrame:CGRectMake(edgeField, labeloriginalY, fieldWidth, labelHeight)];
@@ -123,7 +123,7 @@
     [self addSubview:spinner];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [self addGestureRecognizer:tapGesture];//觸碰空白區域 縮小鍵盤
+    [self addGestureRecognizer:tapGesture];//removed keyboard
     
     return self;
 }
@@ -141,7 +141,7 @@
     return [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 }
 
-- (void)readJsonfileToDictionary:(NSString *)urlString Completion:(void (^) (NSDictionary * result, NSError * err))completion {
+- (void)readJsonfileToDictionary:(NSString *)urlString Completion:(void (^) (NSDictionary *result, NSError *err))completion {
     [spinner startAnimating];
     NSURL *JSONURL = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:JSONURL];
@@ -298,7 +298,7 @@
                                 @"daggerhashimoto", @"algorithm", nil]];
             
             NSString *fAlgorithmValue = [NSString stringWithFormat:@"%.3f", [self getBestAlgorithmValue:arrData]];
-            [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data", name, @"Key", fAlgorithmValue , @"bestAlgorithmValue",nil]];
+            [_gpuProf addObject:[NSDictionary dictionaryWithObjectsAndKeys:arrData, @"Data", name, @"Key", fAlgorithmValue, @"bestAlgorithmValue", nil]];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
