@@ -12,6 +12,8 @@
 #import "oneViewController.h"
 #import "ShowMessageController.h"
 
+@import Firebase;
+
 
 @interface profView : UIView <UITableViewDelegate, UITableViewDataSource, PopupDelegate> {
     UILabel *laBTCValue;
@@ -22,6 +24,8 @@
     UIButton *priceBtn;
     UIButton *assumeBtn;
 
+    
+    UILabel *versionLab;
     UIActivityIndicatorView *spinner;
     Popup *popper;
     
@@ -31,6 +35,7 @@
     PopupBackGroundBlurType blurType;
     PopupIncomingTransitionType incomingType;
     PopupOutgoingTransitionType outgoingType;
+    
 }
 
 @property (nonatomic, strong)  ViewController* controller;
@@ -41,6 +46,10 @@
 @property float currentETHPrice;
 @property float currentLTCPrice;
 @property float currentSCPrice;
+
+@property float binanceETHPrice;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+
 
 
 @end

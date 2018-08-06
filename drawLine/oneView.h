@@ -49,5 +49,6 @@
 @property float currentBTCPrice;
 
 - (void) getData;
+- (void) initWithFrame:(CGRect)frame controller:(UIViewController *)vc;
 
 @end

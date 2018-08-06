@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 
+@import Firebase;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
     UINavigationController *rootViewController;
     ViewController *viewController;

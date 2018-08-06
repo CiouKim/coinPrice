@@ -11,15 +11,25 @@
 #import "GpuType.h"
 #import "ShowMessageController.h"
 
+@import FirebaseDatabase;
+
 #define coinPriceUrl @"https://api.nicehash.com/api?method=simplemultialgo.info"
 #define balanceUrl @"https://auto-mover.firebaseio.com/balance.json"
 #define currentCoinPrice @"https://api.coinmarketcap.com/v1/ticker/?limit=50"
+
 
 @implementation profView
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     self.backgroundColor = [UIColor clearColor];
+    
+    versionLab = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width /2 - 25, 0, 50, 50)];
+    versionLab.backgroundColor = [UIColor clearColor];
+    versionLab.textColor = [UIColor grayColor];
+    versionLab.textAlignment = NSTextAlignmentCenter;
+    versionLab.font = [UIFont systemFontOfSize:13];
+    [self addSubview:versionLab];
     
     laBTCValue = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.frame.size.width -20, 50)];
     laBTCValue.backgroundColor = [UIColor clearColor];
@@ -91,7 +101,35 @@
     
     [self refeeshClick];
     
+    self.binanceETHPrice = 0.0;
+    NSMutableArray *arr = [self rptMapSet:@"BBWSIL"];//test
+    
+    [self firebaseDataChangeListening];
+    
+    
+
+//    [NSTimer
+//     scheduledTimerWithTimeInterval:10
+//     target:self
+//     selector:@selector(showPriceETH:)
+//     userInfo:nil
+//     repeats:YES];
+    
     return self;
+}
+
+
+- (void)showPriceETH:(NSTimer *)sender {
+    [self readJsonfileToDictionary:@"https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT" Completion:^(NSDictionary *result, NSError *err) {
+        if (self.binanceETHPrice != 0) {
+            NSLog(@"sss price:%.8f",[[result valueForKey:@"price"] floatValue]/self.binanceETHPrice);
+            if ([[result valueForKey:@"price"] floatValue] / self.binanceETHPrice - 1 > .0004) {
+                NSLog(@"Difference price:%.8f",[[result valueForKey:@"price"] floatValue]/self.binanceETHPrice);
+            }
+        }
+        self.binanceETHPrice = [[result valueForKey:@"price"] floatValue];
+        NSLog(@"ETH-USDT Price:%.2f  Date:%@", [[result valueForKey:@"price"] floatValue], [NSDate new]);
+    }];
 }
 
 - (void)refeeshClick {
@@ -319,7 +357,13 @@
         oneVC = [[oneViewController alloc] init];
     }
     oneVC.navigationItem.title = @"Assume Income";
-    [self.controller.navigationController pushViewController:oneVC animated:NO];
+//    CATransition *transition=[CATransition animation];
+//    transition.type=kCATransitionPush;
+//    transition.subtype=kCATransitionFromTop;
+
+//    [self.controller.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+    oneVC.view.backgroundColor = [UIColor whiteColor];
+    [self.controller.navigationController pushViewController:oneVC animated:YES];
 }
 
 - (void)priceBtnClick {
@@ -356,6 +400,42 @@
     [popper setOutgoingTransition:outgoingType];
     [popper setRoundedCorners:YES];
     [popper showPopup];
+}
+
+//test for i-share rptArray
+- (NSMutableArray *)rptMapSet:(NSString *)prodID {
+    NSArray *arr = (NSArray *)[[self jsonFromFile:[[NSBundle mainBundle] pathForResource:@"jsonDataNew" ofType:@"json"]] valueForKey:@"RrtMap"];
+    NSMutableArray *rptMap = [[NSMutableArray alloc] init];
+    for (NSDictionary *dic in arr) {
+        NSArray *arr = [[dic valueForKey:prodID] allObjects];
+        for (NSDictionary *d in arr) {
+            [rptMap addObject:d];
+        }
+    }
+    return rptMap;
+}
+
+-(void)firebaseDataChangeListening {
+    self.ref = [[FIRDatabase database] reference];
+    
+    [[_ref child:@"Version"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        NSLog(@"snap = %@", snapshot.value);//取資料
+        dispatch_async(dispatch_get_main_queue(), ^{
+            versionLab.text = [NSString stringWithFormat:@"Ver:%@", [snapshot.value valueForKey:@"Ver"]];
+        });
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+
+////    監聽資料變更  data -> Version
+    [[_ref child:@"Version"] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot *snapshot) {
+//        NSLog(@"snap = %@", snapshot.value);//取資料
+        dispatch_async(dispatch_get_main_queue(), ^{
+            versionLab.text = [NSString stringWithFormat:@"Ver:%@", snapshot.value];
+        });
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
 }
 
 @end

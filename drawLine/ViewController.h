@@ -11,6 +11,8 @@
 #import "oneView.h"
 #import "profView.h"
 
+@import Firebase;
+
 @class LineView;
 @class oneView;
 @class profView;
@@ -22,7 +24,7 @@
 
 @property (nonatomic) LineView * lineView;
 @property (nonatomic) oneView *oneView;
-
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 

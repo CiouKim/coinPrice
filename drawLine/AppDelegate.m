@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "iCloudHelper.h"
+
 @interface AppDelegate ()
 
 @end
@@ -86,6 +87,8 @@
     [self.window setRootViewController:rootViewController];
     [self.window makeKeyAndVisible];
 
+    
+    [FIRApp configure];
     return YES;
 }
 

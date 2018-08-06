@@ -10,12 +10,16 @@
 #import "oneViewController.h"
 #import "profView.h"
 
+@import FirebaseDatabase;
 
 @interface ViewController ()
+@property(strong, nonatomic) FIRAuthStateDidChangeListenerHandle handle;
 
 @end
 
 @implementation ViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,6 +32,38 @@
     pView = [[profView alloc] initWithFrame:self.view.bounds];
     pView.controller = self;
     self.view = pView;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+//    [[FIRAuth auth] signInWithEmail:@"test03@gmail.com"
+//                           password:@"1234567"
+//                         completion:^(FIRUser *user, NSError *error) {
+//                             if (error) {
+//                                 NSLog(@"%@",error);
+//                             }
+//                             if (user) {
+//
+////                                 [[FIRAuth auth].currentUser updatePassword:@"1234567" completion:^(NSError *_Nullable error) {
+////                                     // ...
+////                                 }];//變更user password
+//                             }
+//                             self.ref = [[FIRDatabase database] reference];
+//                             [[_ref child:@"User"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//                                 NSLog(@"snap = %@",snapshot.value );//取資料
+//                             } withCancelBlock:^(NSError * _Nonnull error) {
+//                                 NSLog(@"%@", error.localizedDescription);
+//                             }];
+//                         }];
+    
+////監聽節點變更資料
+//    self.ref = [[FIRDatabase database] reference];
+//
+//    [[_ref child:@"User"] observeEventType:FIRDataEventTypeChildChanged
+//     withBlock:^(FIRDataSnapshot *snapshot) {
+//         NSLog(@"snap = %@",snapshot.value );//取資料
+//     } withCancelBlock:^(NSError * _Nonnull error) {
+//        NSLog(@"%@", error.localizedDescription);
+//    }];
 }
 
 

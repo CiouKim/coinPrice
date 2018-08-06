@@ -32,7 +32,7 @@
 }
 
 - (void)back:(UIBarButtonItem *)sender {
-    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self.navigationController popoverPresentationController];
 }
 
 @end
