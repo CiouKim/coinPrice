@@ -2,11 +2,11 @@
     "GPUData":[
                {
                "GPU": "1080",
-               "daggerhashimoto": "23.5",
+               "daggerhashimoto": "32.5",
                "equihash":"580",
                "lyra2rev2":"51",
                "neoscrypt":"1060",
-               "nist5":"58",
+               "nist5":"54",
                "CostWatt":"150"
                },
                {

@@ -13,6 +13,7 @@
 		7C61319920634F5800068B57 /* GpuGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C61319820634F5800068B57 /* GpuGroup.json */; };
 		7C62AAE51FFE1A7800CE9B02 /* oneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C62AAE41FFE1A7800CE9B02 /* oneViewController.m */; };
 		7C62AAE81FFE1AA900CE9B02 /* oneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C62AAE71FFE1AA900CE9B02 /* oneView.m */; };
+		7C66803E2119757600E805B1 /* CircleProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C66803D2119757600E805B1 /* CircleProgressBar.m */; };
 		7C689169202D764100488FF5 /* CkmainCRM_Cust.db in Resources */ = {isa = PBXBuildFile; fileRef = 7C689168202D764100488FF5 /* CkmainCRM_Cust.db */; };
 		7C7B195F1FFB3179004A5D21 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B195E1FFB3179004A5D21 /* AppDelegate.m */; };
 		7C7B19621FFB3179004A5D21 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B19611FFB3179004A5D21 /* ViewController.m */; };
@@ -43,6 +44,8 @@
 		7C62AAE41FFE1A7800CE9B02 /* oneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oneViewController.m; sourceTree = "<group>"; };
 		7C62AAE61FFE1AA900CE9B02 /* oneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oneView.h; sourceTree = "<group>"; };
 		7C62AAE71FFE1AA900CE9B02 /* oneView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oneView.m; sourceTree = "<group>"; };
+		7C66803C2119757600E805B1 /* CircleProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressBar.h; sourceTree = "<group>"; };
+		7C66803D2119757600E805B1 /* CircleProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressBar.m; sourceTree = "<group>"; };
 		7C689168202D764100488FF5 /* CkmainCRM_Cust.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = CkmainCRM_Cust.db; sourceTree = "<group>"; };
 		7C7B195A1FFB3179004A5D21 /* drawLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drawLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C7B195D1FFB3179004A5D21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -120,6 +123,8 @@
 				7CD3DF3D20EE0A6600C8F73B /* GoogleService-Info.plist */,
 				7C7B195D1FFB3179004A5D21 /* AppDelegate.h */,
 				7C7B195E1FFB3179004A5D21 /* AppDelegate.m */,
+				7C66803C2119757600E805B1 /* CircleProgressBar.h */,
+				7C66803D2119757600E805B1 /* CircleProgressBar.m */,
 				7C80611F205F95CC00849B6E /* Popup.h */,
 				7C80611E205F95CC00849B6E /* Popup.m */,
 				7C60F6CA205A5C6C009FB4E8 /* GpuType.h */,
@@ -311,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C66803E2119757600E805B1 /* CircleProgressBar.m in Sources */,
 				7C7B19751FFB31CE004A5D21 /* LineView.m in Sources */,
 				7C60F6BA205A48A7009FB4E8 /* profView.m in Sources */,
 				7C806120205F95CD00849B6E /* Popup.m in Sources */,

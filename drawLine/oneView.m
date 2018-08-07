@@ -13,11 +13,13 @@
 #import "iCloudHelper.h"
 #import "GpuType.h"
 
+
 #define coinPriceUrl @"https://api.nicehash.com/api?method=simplemultialgo.info"
 #define balanceUrl @"https://auto-mover.firebaseio.com/balance.json"
 #define currentCoinPrice @"https://api.coinmarketcap.com/v1/ticker/?limit=50"
 
 @implementation oneView
+
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -117,6 +119,7 @@
     [assumeIcomeLab setTextColor:[UIColor colorWithRed:0.329 green:0.396 blue:0.584 alpha:1]];
     [self addSubview:assumeIcomeLab];
     
+    
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     spinner.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 100);
     spinner.hidesWhenStopped = YES;
@@ -124,7 +127,7 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:tapGesture];//removed keyboard
-    
+        
     return self;
 }
 

@@ -10,12 +10,17 @@
 #import "oneViewController.h"
 #import "GpuType.h"
 #import "ShowMessageController.h"
+#import "CircleProgressBar.h"
 
 @import FirebaseDatabase;
 
 #define coinPriceUrl @"https://api.nicehash.com/api?method=simplemultialgo.info"
 #define balanceUrl @"https://auto-mover.firebaseio.com/balance.json"
 #define currentCoinPrice @"https://api.coinmarketcap.com/v1/ticker/?limit=50"
+
+@interface profView()
+@property (nonatomic, strong) CircleProgressBar *cProgressBar;
+@end
 
 
 @implementation profView
@@ -26,7 +31,7 @@
     
     versionLab = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width /2 - 25, 0, 50, 50)];
     versionLab.backgroundColor = [UIColor clearColor];
-    versionLab.textColor = [UIColor grayColor];
+    versionLab.textColor = [UIColor redColor];
     versionLab.textAlignment = NSTextAlignmentCenter;
     versionLab.font = [UIFont systemFontOfSize:13];
     [self addSubview:versionLab];
@@ -52,7 +57,7 @@
     refreshBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:107/255.0 blue:171/255.0 alpha:1.0];
     [refreshBtn addTarget:self action:@selector(refeeshClick) forControlEvents:UIControlEventTouchUpInside];
     [refreshBtn setTitle:@"R" forState:UIControlStateNormal];
-    refreshBtn.frame = CGRectMake(7, 420, 50, 50);
+    refreshBtn.frame = CGRectMake(7, 415, 50, 50);
     [self addSubview:refreshBtn];
     
     bestBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,7 +66,7 @@
     bestBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:6.0/255.0 blue:40.0/255.0 alpha:1.0];
     [bestBtn addTarget:self action:@selector(getBestAlgorithmForGPU) forControlEvents:UIControlEventTouchUpInside];
     [bestBtn setTitle:@"B" forState:UIControlStateNormal];
-    bestBtn.frame = CGRectMake(77, 420, 50, 50);
+    bestBtn.frame = CGRectMake(77, 415, 50, 50);
     [self addSubview:bestBtn];
     
     profitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -70,7 +75,7 @@
     profitBtn.backgroundColor = [UIColor colorWithRed:64.0/255.0 green:255.0/255.0 blue:0.0/255.0 alpha:1.0];
     [profitBtn addTarget:self action:@selector(getProfit) forControlEvents:UIControlEventTouchUpInside];
     [profitBtn setTitle:@"P" forState:UIControlStateNormal];
-    profitBtn.frame = CGRectMake(157, 420, 50, 50);
+    profitBtn.frame = CGRectMake(157, 415, 50, 50);
     [self addSubview:profitBtn];
     
     priceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -79,7 +84,7 @@
     priceBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:217.0/255.0 alpha:1.0];
     [priceBtn addTarget:self action:@selector(priceBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [priceBtn setTitle:@"L" forState:UIControlStateNormal];
-    priceBtn.frame = CGRectMake(237, 420, 50, 50);
+    priceBtn.frame = CGRectMake(237, 415, 50, 50);
     [self addSubview:priceBtn];
 
     assumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -88,7 +93,7 @@
     assumeBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:184.0/255.0 blue:77.0/255.0 alpha:1.0];
     [assumeBtn addTarget:self action:@selector(assumeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [assumeBtn setTitle:@"A" forState:UIControlStateNormal];
-    assumeBtn.frame = CGRectMake(317, 420, 50, 50);
+    assumeBtn.frame = CGRectMake(317, 415, 50, 50);
     [self addSubview:assumeBtn];
     
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -103,7 +108,9 @@
     
     self.binanceETHPrice = 0.0;
     NSMutableArray *arr = [self rptMapSet:@"BBWSIL"];//test
+
     
+    [self firebaseGetDate];
     [self firebaseDataChangeListening];
     
     
@@ -118,6 +125,29 @@
     return self;
 }
 
+- (CircleProgressBar *)cProgressBar  {
+    //lazy
+    if (_cProgressBar == nil) {
+        _cProgressBar = [[CircleProgressBar alloc] init];
+        _cProgressBar.alpha = 1.0;
+        _cProgressBar.backgroundColor = [UIColor clearColor];
+        _cProgressBar.progressBarWidth = 5;
+        _cProgressBar.progressBarProgressColor = [UIColor greenColor];
+        _cProgressBar.progressBarTrackColor = [UIColor lightGrayColor];
+        _cProgressBar.hintViewBackgroundColor = [UIColor whiteColor];
+        _cProgressBar.hintTextColor = [UIColor blackColor];
+        _cProgressBar.hintTextFont = [UIFont systemFontOfSize:30];
+        _cProgressBar.startAngle = 270;
+        
+        _cProgressBar.frame = CGRectMake(self.frame.size.width/2 - 60, self.frame.size.height -  175, 110, 110);
+        
+        UIView *whiteLine = [[UIView alloc]initWithFrame:CGRectZero];
+        whiteLine.backgroundColor = [UIColor whiteColor];
+        [_cProgressBar addSubview:whiteLine];
+        [self addSubview:_cProgressBar];
+    }
+    return _cProgressBar;
+}
 
 - (void)showPriceETH:(NSTimer *)sender {
     [self readJsonfileToDictionary:@"https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT" Completion:^(NSDictionary *result, NSError *err) {
@@ -415,23 +445,64 @@
     return rptMap;
 }
 
--(void)firebaseDataChangeListening {
-    self.ref = [[FIRDatabase database] reference];
-    
+-(void)firebaseGetDate {
+    if (self.ref == nil) {
+        self.ref = [[FIRDatabase database] reference];
+    }
+
+#pragma mark -firebaseDataGet data -> Version
     [[_ref child:@"Version"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        NSLog(@"snap = %@", snapshot.value);//取資料
         dispatch_async(dispatch_get_main_queue(), ^{
             versionLab.text = [NSString stringWithFormat:@"Ver:%@", [snapshot.value valueForKey:@"Ver"]];
         });
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
     }];
+    
+#pragma mark -firebaseDataGet data -> User
+    [[_ref child:@"User"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"UserChange:%@ count:%lu", snapshot.value, [snapshot.value count]);
+        });
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+#pragma mark -firebaseDataGet data -> Circle
+    [[_ref child:@"Circle"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.cProgressBar setProgress:[[snapshot.value valueForKey:@"Process"] floatValue]/100 animated:YES];
+        });
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+}
 
-////    監聽資料變更  data -> Version
+-(void)firebaseDataChangeListening {
+    if (self.ref == nil) {
+        self.ref = [[FIRDatabase database] reference];
+    }
+
+#pragma mark -firebaesDataChange  data -> Version
     [[_ref child:@"Version"] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot *snapshot) {
-//        NSLog(@"snap = %@", snapshot.value);//取資料
         dispatch_async(dispatch_get_main_queue(), ^{
             versionLab.text = [NSString stringWithFormat:@"Ver:%@", snapshot.value];
+        });
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+
+#pragma mark -firebaesDataChange  data -> User
+    [[_ref child:@"User"] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot *snapshot) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"UserChange:%@", snapshot.value);
+        });
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+#pragma mark -firebaesDataChange  data -> Circle
+    [[_ref child:@"Circle"] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot *snapshot) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.cProgressBar setProgress:[snapshot.value floatValue]/100 animated:YES];
         });
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
