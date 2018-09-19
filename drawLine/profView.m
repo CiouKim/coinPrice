@@ -462,11 +462,14 @@
 #pragma mark -firebaseDataGet data -> User
     [[_ref child:@"User"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"UserChange:%@ count:%lu", snapshot.value, [snapshot.value count]);
+            NSDictionary *dic = [[NSDictionary alloc] init];
+            dic = snapshot.value;
+            NSLog(@"UserChange:%@ ", [dic allValues]);
         });
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
     }];
+    
 #pragma mark -firebaseDataGet data -> Circle
     [[_ref child:@"Circle"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -499,6 +502,7 @@
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
     }];
+    
 #pragma mark -firebaesDataChange  data -> Circle
     [[_ref child:@"Circle"] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot *snapshot) {
         dispatch_async(dispatch_get_main_queue(), ^{

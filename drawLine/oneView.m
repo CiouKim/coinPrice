@@ -127,6 +127,12 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:tapGesture];//removed keyboard
+
+#pragma mark - Setup test targetDataArray
+    self.targetDataArray = @[@"2050006053", @"2050006026", @"2050006050"];
+//    self.targetDataArray = @[@"2050004053", @"2050006026", @"2050006050"];
+
+    [self getRuleData:[[NSBundle mainBundle] pathForResource:@"Rule" ofType:@"json"]];
         
     return self;
 }
@@ -385,6 +391,41 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [self calcularBtnClick];
+}
+
+#pragma mark - testRuleMethod
+- (void)getRuleData:(NSString *)path {
+    BOOL hasError = NO;
+    NSArray *arr = [[[self jsonFromFile:path] valueForKey:@"Rule"] allObjects];//get all ProductRule
+    
+    for (NSDictionary *dic in arr) {
+        if ([self isContainMainRule:[dic valueForKey:@"mainRoleProductID"]] && [self isContainDenyRoles:[dic valueForKey:@"denyRoleProduces"]] == [[dic valueForKey:@"isPHeqIO"] boolValue]) {
+            NSLog(@"rule crash need show message");
+            hasError = YES;
+        }
+    }
+    
+    if (hasError == NO) {
+         NSLog(@"rule pass");
+    }
+}
+
+#pragma mark - checkDenyRoles
+- (BOOL)isContainDenyRoles:(id<NSFastEnumeration>)ruleArray {
+    for (id denyRole in ruleArray) {
+        if ([self.targetDataArray containsObject:denyRole] == YES) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+#pragma mark - checkRule
+- (BOOL)isContainMainRule:(NSString *)mainRuleStr {
+    if ([self.targetDataArray containsObject:mainRuleStr] == YES) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

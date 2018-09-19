@@ -24,25 +24,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    oneView *view = [[oneView alloc] initWithFrame:self.view.bounds];
-//    view.controller = self;
-//    self.oneView = view;
-//    [self.view addSubview:view];
-
+    //    oneView *view = [[oneView alloc] initWithFrame:self.view.bounds];
+    //    view.controller = self;
+    //    self.oneView = view;
+    //    [self.view addSubview:view];
+    
     pView = [[profView alloc] initWithFrame:self.view.bounds];
     pView.controller = self;
     self.view = pView;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
+    
     self.ref = [[FIRDatabase database] reference];
-    [[FIRAuth auth] signInWithEmail:@"test03@gmail.com"
-                           password:@"1234567"
-                         completion:^(FIRUser *user, NSError *error) {
+    [[FIRAuth auth] signInWithEmail:@"test03@gmail.com" password:@"1234567" completion:^(FIRUser *user, NSError *error) {
                              if (error) {
                                  NSLog(@"%@",error);
                              }
-                             
+                            
                              if (user) {
 #pragma mark -firebase user change password
 //                                 [[FIRAuth auth].currentUser updatePassword:@"1234567" completion:^(NSError *_Nullable error) {
@@ -60,14 +56,18 @@
                              }
                          }];
     
-////監聽節點變更資料
-//
-//    [[_ref child:@"User"] observeEventType:FIRDataEventTypeChildChanged
-//     withBlock:^(FIRDataSnapshot *snapshot) {
-//         NSLog(@"snap = %@",snapshot.value );//取資料
-//     } withCancelBlock:^(NSError * _Nonnull error) {
-//        NSLog(@"%@", error.localizedDescription);
-//    }];
+    ////監聽節點變更資料
+    //
+    //    [[_ref child:@"User"] observeEventType:FIRDataEventTypeChildChanged
+    //     withBlock:^(FIRDataSnapshot *snapshot) {
+    //         NSLog(@"snap = %@",snapshot.value );//取資料
+    //     } withCancelBlock:^(NSError * _Nonnull error) {
+    //        NSLog(@"%@", error.localizedDescription);
+    //    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
 }
 
 
@@ -77,3 +77,4 @@
 }
 
 @end
+

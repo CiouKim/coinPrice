@@ -1,0 +1,22 @@
+{
+  "Rule": [
+    {
+      "mainRoleProductID": "2050006053",
+      "denyRoleProduces": [
+        "2050006026",
+        "2050006076",
+        "2050006050"
+      ],
+      "isPHeqIO": "1"
+    },
+    {
+      "mainRoleProductID": "2050006043",
+      "denyRoleProduces": [
+        "2050006021",
+        "2050006074",
+        "2050006044"
+      ],
+      "isPHeqIO": "0"
+    }
+  ]
+}

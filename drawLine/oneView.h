@@ -45,6 +45,7 @@
 
 @property (nonatomic, readonly) NSMutableArray *gpuGroups;
 @property (nonatomic, readonly) NSMutableArray *gpuProf;
+@property (nonatomic, strong) NSArray *targetDataArray;
 
 @property float currentBTCPrice;
 

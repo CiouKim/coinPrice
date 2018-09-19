@@ -25,6 +25,7 @@
 		7C8F79C220243BB50067C5CF /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8F79C120243BB50067C5CF /* RTLabel.m */; };
 		7C96194F20BBDF6C0036A39D /* ShowMessageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C96194D20BBDF6C0036A39D /* ShowMessageController.xib */; };
 		7C96195320BBE2A90036A39D /* ShowMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C96195120BBE2670036A39D /* ShowMessageController.m */; };
+		7C9E25032121579700C6562B /* Rule.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C9E25022121579700C6562B /* Rule.json */; };
 		7CD32AFE2003229600E7293C /* iCloudHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD32AFD2003229600E7293C /* iCloudHelper.m */; };
 		7CD32B012003364B00E7293C /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD32B002003364B00E7293C /* apple.png */; };
 		7CD32B0320033D5600E7293C /* apple12.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD32B0220033D5600E7293C /* apple12.png */; };
@@ -65,6 +66,7 @@
 		7C96194D20BBDF6C0036A39D /* ShowMessageController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowMessageController.xib; sourceTree = "<group>"; };
 		7C96195020BBE2670036A39D /* ShowMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMessageController.h; sourceTree = "<group>"; };
 		7C96195120BBE2670036A39D /* ShowMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMessageController.m; sourceTree = "<group>"; };
+		7C9E25022121579700C6562B /* Rule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Rule.json; sourceTree = "<group>"; };
 		7CD32AFC2003229600E7293C /* iCloudHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCloudHelper.h; sourceTree = "<group>"; };
 		7CD32AFD2003229600E7293C /* iCloudHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloudHelper.m; sourceTree = "<group>"; };
 		7CD32B002003364B00E7293C /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				7C689168202D764100488FF5 /* CkmainCRM_Cust.db */,
 				7C3883C62005D90300968D9F /* jsonDataNew.json */,
 				7C61319820634F5800068B57 /* GpuGroup.json */,
+				7C9E25022121579700C6562B /* Rule.json */,
 				7C7B196B1FFB3179004A5D21 /* Info.plist */,
 			);
 			path = drawLine;
@@ -257,6 +260,7 @@
 				7CD3DF3E20EE0A6700C8F73B /* GoogleService-Info.plist in Resources */,
 				7C689169202D764100488FF5 /* CkmainCRM_Cust.db in Resources */,
 				7C3883C72005D90300968D9F /* jsonDataNew.json in Resources */,
+				7C9E25032121579700C6562B /* Rule.json in Resources */,
 				7C96194F20BBDF6C0036A39D /* ShowMessageController.xib in Resources */,
 				7C61319920634F5800068B57 /* GpuGroup.json in Resources */,
 				7CD32B012003364B00E7293C /* apple.png in Resources */,

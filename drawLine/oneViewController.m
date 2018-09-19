@@ -35,4 +35,9 @@
     [self.navigationController popoverPresentationController];
 }
 
+- (void)dealloc {
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 @end
