@@ -139,7 +139,7 @@
         _cProgressBar.hintTextFont = [UIFont systemFontOfSize:30];
         _cProgressBar.startAngle = 270;
         
-        _cProgressBar.frame = CGRectMake(self.frame.size.width/2 - 60, self.frame.size.height -  175, 110, 110);
+        _cProgressBar.frame = CGRectMake(self.frame.size.width/2 - 60, self.frame.size.height -  109, 110, 110);
         
         UIView *whiteLine = [[UIView alloc]initWithFrame:CGRectZero];
         whiteLine.backgroundColor = [UIColor whiteColor];
